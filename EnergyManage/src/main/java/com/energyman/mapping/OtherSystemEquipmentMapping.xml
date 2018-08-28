@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.OtherSystemEquipmentDao" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.OtherSystemEquipment" >
+    <id column="EquipmentID" property="systemEquipmentID" jdbcType="INTEGER" />
+    <result column="EquipmentName" property="systemEquipmentName" jdbcType="VARCHAR" />
+    <result column="EquipmentCode" property="systemEquipmentCode" jdbcType="INTEGER" />
+    <result column="EquipmentTypeID" property="systemEquipmentTypeID" jdbcType="INTEGER" />
+    <result column="StateID" property="stateID" jdbcType="INTEGER" />
+    <result column="AddrID" property="addrID" jdbcType="INTEGER" />
+    <result column="SystemEquipmentTypeID" property="systemEquipmentType_ID" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    EquipmentID, EquipmentName, EquipmentCode, EquipmentTypeID, StateID, AddrID, SystemEquipmentTypeID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from otherequipment
+    where EquipmentID = #{systemEquipmentID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from otherequipment
+    where EquipmentID = #{systemEquipmentID,jdbcType=INTEGER}
+  </delete>
+   <insert id="insert" parameterType="com.energyman.bean.OtherSystemEquipment" >
+    insert into otherequipment (EquipmentID, EquipmentName, EquipmentCode, EquipmentTypeID, StateID, AddrID, SystemEquipmentTypeID)
+    values (#{systemEquipmentID,jdbcType=INTEGER}, #{systemEquipmentName,jdbcType=VARCHAR}, #{systemEquipmentCode,jdbcType=INTEGER},
+    #{systemEquipmentTypeID,jdbcType=INTEGER}, #{stateID,jdbcType=INTEGER}, #{addrID,jdbcType=INTEGER},#{systemEquipmentType_ID,jdbcType=INTEGER})
+  </insert>
+   <insert id="insertSelective" parameterType="com.energyman.bean.OtherSystemEquipment" >
+    insert into otherequipment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="systemEquipmentID != null" >
+        EquipmentID,
+      </if>
+      <if test="systemEquipmentName != null" >
+        EquipmentName,
+      </if>
+      <if test="systemEquipmentCode != null" >
+        EquipmentCode,
+      </if>
+      <if test="systemEquipmentTypeID != null" >
+        EquipmentTypeID,
+      </if>
+      <if test="stateID != null" >
+        StateID,
+      </if>
+      <if test="addrID != null" >
+        AddrID,
+      </if>
+      <if test="systemEquipmentType_ID != null" >
+        SystemEquipmentTypeID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="systemEquipmentID != null" >
+       #{systemEquipmentID,jdbcType=INTEGER},
+      </if>
+      <if test="systemEquipmentName != null" >
+      #{systemEquipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemEquipmentCode != null" >
+      #{systemEquipmentCode,jdbcType=INTEGER},
+      </if>
+      <if test="systemEquipmentTypeID != null" >
+      #{systemEquipmentTypeID,jdbcType=INTEGER},
+      </if>
+      <if test="stateID != null" >
+      #{stateID,jdbcType=INTEGER},
+      </if>    
+      <if test="addrID != null" >
+      #{addrID,jdbcType=INTEGER},
+      </if>
+      <if test="systemEquipmentType_ID != null" >
+        #{systemEquipmentType_ID,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.OtherSystemEquipment" >
+    update otherequipment
+    <set >
+      <if test="systemEquipmentID != null" >
+        EquipmentID = #{systemEquipmentID,jdbcType=INTEGER},
+      </if>
+      <if test="systemEquipmentName != null" >
+       	EquipmentName =  #{systemEquipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemEquipmentCode != null" >
+      	EquipmentCode = #{systemEquipmentCode,jdbcType=INTEGER},
+      </if>
+      <if test="systemEquipmentTypeID != null" >
+      	EquipmentTypeID = #{systemEquipmentTypeID,jdbcType=INTEGER},
+      </if>
+      <if test="stateID != null" >
+      	StateID = #{stateID,jdbcType=INTEGER},
+      </if>
+      <if test="addrID != null" >
+      	AddrID = #{addrID,jdbcType=INTEGER},
+      </if>
+      <if test="systemEquipmentType_ID != null" >
+      	SystemEquipmentTypeID = #{systemEquipmentType_ID,jdbcType=INTEGER},
+      </if>
+    </set>
+    where EquipmentID = #{systemEquipmentID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.OtherSystemEquipment" >
+    update otherequipment
+    set EquipmentID = #{systemEquipmentID,jdbcType=INTEGER},
+      EquipmentName =  #{systemEquipmentName,jdbcType=VARCHAR},
+      EquipmentCode = #{systemEquipmentCode,jdbcType=INTEGER},
+      EquipmentTypeID = #{systemEquipmentTypeID,jdbcType=INTEGER},
+      StateID = #{stateID,jdbcType=INTEGER},
+      SystemEquipmentTypeID = #{systemEquipmentType_ID,jdbcType=INTEGER},
+      AddrID = #{addrID,jdbcType=INTEGER}
+    where EquipmentID = #{systemEquipmentID,jdbcType=INTEGER}
+
+  </update>
+</mapper>

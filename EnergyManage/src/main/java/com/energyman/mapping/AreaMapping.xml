@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.AreaDao" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.Area" >
+    <id column="RegionID" property="region_ID" jdbcType="INTEGER" />
+    <result column="RegionName" property="region_Name" jdbcType="VARCHAR" />
+    <result column="ParkID" property="park_ID" jdbcType="INTEGER" />
+    <result column="RegionAddr" property="region_Addr" jdbcType="VARCHAR" />
+    <result column="RegionContact" property="region_Contact" jdbcType="VARCHAR" />
+    <result column="RegionTel" property="region_Tel" jdbcType="VARCHAR" />
+    <result column="RegionEmail" property="region_Email" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RegionID, RegionName, ParkID, RegionAddr, RegionContact, RegionTel, RegionEmail
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from area
+    where RegionID = #{region_ID,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAllArea" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from area
+  </select> 
+  
+  <select id="selectByPark" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from area
+    where ParkID = #{park_ID,jdbcType=INTEGER}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from area
+    where RegionID = #{region_ID,jdbcType=INTEGER}
+  </delete>
+   <insert id="insert" parameterType="com.energyman.bean.Area" >
+    insert into area (RegionID, RegionName, ParkID, RegionAddr, RegionContact, RegionTel, RegionEmail)
+    values (#{region_ID,jdbcType=INTEGER}, #{region_Name,jdbcType=VARCHAR}, #{park_ID,jdbcType=INTEGER},
+    #{region_Addr,jdbcType=VARCHAR}, #{region_Contact,jdbcType=VARCHAR}, #{region_Tel,jdbcType=VARCHAR},
+    #{region_Email,jdbcType=VARCHAR})
+  </insert>
+   <insert id="insertSelective" parameterType="com.energyman.bean.Area" >
+    insert into area
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="region_ID != null" >
+        RegionID,
+      </if>
+      <if test="region_Name != null" >
+        RegionName,
+      </if>
+      <if test="park_ID != null" >
+        ParkID,
+      </if>
+      <if test="region_Addr != null" >
+        RegionAddr,
+      </if>
+      <if test="region_Contact != null" >
+        RegionContact,
+      </if>
+      <if test="region_Tel != null" >
+        RegionTel,
+      </if>
+      <if test="region_Email != null" >
+        RegionEmail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="region_ID != null" >
+       #{region_ID,jdbcType=INTEGER},
+      </if>
+      <if test="region_Name != null" >
+       #{region_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="park_ID != null" >
+      #{park_ID,jdbcType=INTEGER},
+      </if>
+      <if test="region_Addr != null" >
+      #{region_Addr,jdbcType=VARCHAR},
+      </if>
+      <if test="region_Contact != null" >
+      #{region_Contact,jdbcType=VARCHAR},
+      </if>
+      <if test="region_Tel != null" >
+      #{region_Tel,jdbcType=VARCHAR},
+      </if>
+      <if test="region_Email != null" >
+      #{region_Email,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.Area" >
+    update area
+    <set >
+      <if test="region_ID != null" >
+        RegionID = #{region_ID,jdbcType=INTEGER},
+      </if>
+      <if test="region_Name != null" >
+       RegionName = #{region_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="park_ID != null" >
+      ParkID = #{park_ID,jdbcType=INTEGER},
+      </if>
+      <if test="region_Addr != null" >
+      RegionAddr = #{region_Addr,jdbcType=VARCHAR},
+      </if>
+      <if test="region_Contact != null" >
+      RegionContact = #{region_Contact,jdbcType=VARCHAR},
+      </if>
+      <if test="region_Tel != null" >
+      RegionTel = #{region_Tel,jdbcType=VARCHAR},
+      </if>
+      <if test="region_Email != null" >
+      RegionEmail = #{region_Email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RegionID = #{region_ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.Area" >
+    update area
+    set RegionID = #{region_ID,jdbcType=INTEGER},
+      RegionName = #{region_Name,jdbcType=VARCHAR},
+      ParkID = #{park_ID,jdbcType=INTEGER},
+      RegionAddr = #{region_Addr,jdbcType=VARCHAR},
+      RegionContact = #{region_Contact,jdbcType=VARCHAR},
+      RegionTel = #{region_Tel,jdbcType=VARCHAR},
+      RegionEmail = #{region_Email,jdbcType=VARCHAR}
+    where RegionID = #{region_ID,jdbcType=INTEGER}
+  </update>
+</mapper>

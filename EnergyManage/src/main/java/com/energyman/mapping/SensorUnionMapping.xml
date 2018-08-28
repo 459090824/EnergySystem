@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.SensorUnionMapper" >
+  <resultMap id="SensorUnionResultMap" type="com.energyman.bean.SensorUnion" >
+    	<id column="SensorID" property="sensor_ID" jdbcType="INTEGER" />
+    	<result column="SensorName" property="sensor_Name" jdbcType="VARCHAR" />
+    	<result column="SensorCode" property="sensor_Code" jdbcType="INTEGER" />
+    	<result column="SensorTypeID" property="sensorType_ID" jdbcType="INTEGER" />
+    	<result column="StateID" property="state_ID" jdbcType="INTEGER" />
+    	<result column="SensorInterval" property="sensor_Interval" jdbcType="VARCHAR" />
+    	<result column="AddrID" property="addr_ID" jdbcType="INTEGER" />
+    	<result column="SystemEquipmentTypeID" property="systemEquipmentType_ID" jdbcType="INTEGER" />
+   	<association property="addr" javaType="com.energyman.bean.Addr">
+    	<id column="AddrID" property="addr_ID" jdbcType="INTEGER" />
+    	<result column="AddrTypeID" property="addrType_ID" jdbcType="INTEGER" />
+    	<result column="AddrCode" property="addr_Code" jdbcType="INTEGER" />
+   	</association>
+   	<association property="systemEquipmentType" javaType="com.energyman.bean.SystemEquipmentType" >
+    	<id column="TypeID" property="systemEquipmentType_ID" jdbcType="INTEGER" />
+    	<result column="TypeName" property="systemEquipmentType_Name" jdbcType="VARCHAR" />
+    	<result column="TypeDesc" property="systemEquipmentType_Desc" jdbcType="VARCHAR" />
+    	<result column="TypeStateID" property="systemEquipmentState_ID" jdbcType="INTEGER" />
+  	</association>
+  	<association property="systemEquipmentSubType" javaType="com.energyman.bean.SystemEquipmentSubType" >
+    	<id column="SubTypeID" property="systemEquipmentSubType_ID" jdbcType="INTEGER" />
+    	<result column="SubTypeName" property="systemEquipmentSubType_Name" jdbcType="VARCHAR" />
+    	<result column="SubTypeDesc" property="systemEquipmentSubType_Desc" jdbcType="VARCHAR" />
+    	<result column="SubTypeStateID" property="systemEquipmentSubState_ID" jdbcType="INTEGER" />
+    	<result column="TypeID" property="systemEquipmentType_ID" jdbcType="INTEGER" />
+ 	</association>
+  	<association property="state" javaType="com.energyman.bean.State" >
+    	<id column="StateID" property="state_ID" jdbcType="INTEGER" />
+    	<result column="StateName" property="state_Name" jdbcType="VARCHAR" />
+    	<result column="StateDesc" property="state_Desc" jdbcType="VARCHAR" />
+  	</association>
+  	<association property="room" javaType="com.energyman.bean.Room" >
+    	<id column="RoomID" property="room_ID" jdbcType="INTEGER" />
+    	<result column="RoomName" property="room_Name" jdbcType="VARCHAR" />
+    	<result column="RoomCode" property="room_Code" jdbcType="INTEGER" />
+    	<result column="BuildID" property="build_ID" jdbcType="INTEGER" />
+    	<result column="RoomFloor" property="room_Floor" jdbcType="INTEGER" />
+    	<result column="RoomArea" property="room_Area" jdbcType="DOUBLE" />
+    	<result column="RoomEasementOfLight" property="roomEasementOfLight" jdbcType="DOUBLE" />
+  	</association>
+  </resultMap>
+  <sql id="Base_Column_Lists" >
+    SensorID, SensorName, SensorCode, sensor.SensorTypeID, sensor.StateID, SensorInterval, sensor.AddrID, 
+    sensor.SystemEquipmentTypeID, addr.AddrID, AddrTypeID, AddrCode, systemEquipmentType.TypeID, TypeName, TypeDesc, TypeStateID, 
+    SubTypeID, SubTypeName, SubTypeDesc, SubTypeStateID, systemEquipmentSubType.TypeID, state.StateID, 
+    StateName, StateDesc, RoomID, RoomName, RoomCode, BuildID, RoomFloor, RoomArea, RoomEasementOfLight
+  </sql>
+  <select id="selectSensorUnionResult" resultMap="SensorUnionResultMap">
+  	select
+  	<include refid="Base_Column_Lists" />
+  	from sensor, addr, systemequipmenttype, systemequipmentsubtype, state, room
+  	where sensor.SensorTypeID = systemequipmentsubtype.SubTypeID AND 
+  	systemequipmenttype.TypeID = systemequipmentsubtype.TypeID AND
+  	sensor.StateID = state.StateID AND sensor.AddrID = addr.AddrID 
+  	AND addr.AddrCode = RoomID AND sensor.StateID != #{state_ID,jdbcType=INTEGER}
+  </select>
+ </mapper>

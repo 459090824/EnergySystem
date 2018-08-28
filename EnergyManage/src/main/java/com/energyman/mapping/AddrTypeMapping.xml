@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.AddrTypeDao" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.AddrType" >
+    <id column="AddrTypeID" property="addrType_ID" jdbcType="INTEGER" />
+    <result column="AddrTypeName" property="addrType_Name" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    AddrTypeID, AddrTypeName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from addrtype
+    where AddrTypeID = #{addrType_ID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from addrtype
+    where AddrTypeID = #{addrType_ID,jdbcType=INTEGER}
+  </delete>
+   <insert id="insert" parameterType="com.energyman.bean.AddrType" >
+    insert into addrtype (AddrTypeID, AddrTypeName)
+    values (#{addrType_ID,jdbcType=INTEGER}, #{addrType_Name,jdbcType=VARCHAR})
+  </insert>
+  
+  <select id="selectAllAddrType" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from addrtype
+  </select> 
+  
+   <insert id="insertSelective" parameterType="com.energyman.bean.AddrType" >
+    insert into addrtype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="addrType_ID != null" >
+        AddrTypeID,
+      </if>
+      <if test="addrType_Name != null" >
+        AddrTypeName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="addrType_ID != null" >
+        #{addrType_ID,jdbcType=INTEGER},
+      </if>
+      <if test="addrType_Name != null" >
+        #{addrType_Name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.AddrType" >
+    update addrtype
+    <set >
+      <if test="addrType_ID != null" >
+        AddrTypeID = #{addrType_ID,jdbcType=INTEGER},
+      </if>
+      <if test="addrType_Name != null" >
+        AddrTypeName = #{addrType_Name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AddrTypeID = #{addrType_ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.AddrType" >
+    update addrtype
+    set AddrTypeID = #{addrType_ID,jdbcType=INTEGER},
+      AddrTypeName = #{addrType_Name,jdbcType=VARCHAR}
+    where AddrTypeID = #{addrType_ID,jdbcType=INTEGER}
+  </update>
+</mapper>

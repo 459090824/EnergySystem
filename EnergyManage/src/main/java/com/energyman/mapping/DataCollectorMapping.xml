@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.DataCollectorDao" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.DataCollector" >
+    <id column="CollectionID" property="collection_ID" jdbcType="INTEGER" />
+    <result column="CollectionName" property="collection_Name" jdbcType="VARCHAR" />
+    <result column="CollectionCode" property="collection_Code" jdbcType="INTEGER" />
+    <result column="CollectionTypeID" property="collectionType_ID" jdbcType="INTEGER" />
+    <result column="StateID" property="state_ID" jdbcType="INTEGER" />
+    <result column="CollectInterval" property="collect_Interval" jdbcType="VARCHAR" />
+    <result column="AddrID" property="addr_ID" jdbcType="INTEGER" />
+    <result column="SystemEquipmentTypeID" property="systemEquipmentType_ID" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CollectionID, CollectionName, CollectionCode, CollectionTypeID, StateID, CollectInterval, AddrID, SystemEquipmentTypeID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from datacollector
+    where CollectionID = #{collection_ID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from datacollector
+    where CollectionID = #{collection_ID,jdbcType=INTEGER}
+  </delete>
+  
+  <select id="selectAllDataCollector" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from datacollector
+  </select>
+  
+   <insert id="insert" parameterType="com.energyman.bean.DataCollector" >
+    insert into datacollector (CollectionID, CollectionName, CollectionCode, CollectionTypeID,
+     StateID, CollectInterval, AddrID, SystemEquipmentTypeID)
+    values (#{collection_ID,jdbcType=INTEGER}, #{collection_Name,jdbcType=VARCHAR}, #{collection_Code,jdbcType=INTEGER},
+    #{collectionType_ID,jdbcType=INTEGER}, #{state_ID,jdbcType=INTEGER}, #{collect_Interval,jdbcType=VARCHAR},
+    #{addr_ID,jdbcType=INTEGER}, #{systemEquipmentType_ID,jdbcType=INTEGER})
+  </insert>
+   <insert id="insertSelective" parameterType="com.energyman.bean.DataCollector" >
+    insert into datacollector
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="collection_ID != null" >
+        CollectionID,
+      </if>
+      <if test="collection_Name != null" >
+        CollectionName,
+      </if>
+      <if test="collection_Code != null" >
+        CollectionCode,
+      </if>
+      <if test="collectionType_ID != null" >
+        CollectionTypeID,
+      </if>
+      <if test="state_ID != null" >
+        StateID,
+      </if>
+      <if test="collect_Interval != null" >
+        CollectInterval,
+      </if>
+      <if test="addr_ID != null" >
+        AddrID,
+      </if>
+      <if test="systemEquipmentType_ID != null" >
+        SystemEquipmentTypeID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="collection_ID != null" >
+       #{collection_ID,jdbcType=INTEGER},
+      </if>
+      <if test="collection_Name != null" >
+      #{collection_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="collection_Code != null" >
+      #{collection_Code,jdbcType=INTEGER},
+      </if>
+      <if test="collectionType_ID != null" >
+      #{collectionType_ID,jdbcType=INTEGER},
+      </if>
+      <if test="state_ID != null" >
+      #{state_ID,jdbcType=INTEGER},
+      </if>
+      <if test="collect_Interval != null" >
+      #{collect_Interval,jdbcType=VARCHAR},
+      </if>
+      <if test="addr_ID != null" >
+      #{addr_ID,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.DataCollector" >
+    update datacollector
+    <set >
+      <if test="collection_ID != null" >
+        CollectionID = #{collection_ID,jdbcType=INTEGER},
+      </if>
+      <if test="collection_Name != null" >
+        CollectionName =  #{collection_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="collection_Code != null" >
+        CollectionCode = #{collection_Code,jdbcType=INTEGER},
+      </if>
+      <if test="collectionType_ID != null" >
+      	CollectionTypeID = #{collectionType_ID,jdbcType=INTEGER},
+      </if>
+      <if test="state_ID != null" >
+      	StateID = #{state_ID,jdbcType=INTEGER},
+      </if>
+      <if test="collect_Interval != null" >
+      	CollectInterval = #{collect_Interval,jdbcType=VARCHAR},
+      </if>
+      <if test="addr_ID != null" >
+      	AddrID = #{addr_ID,jdbcType=INTEGER},
+      </if>
+      <if test="systemEquipmentType_ID != null" >
+        SystemEquipmentTypeID = #{systemEquipmentType_ID,jdbcType=INTEGER},
+      </if>
+    </set>
+    where CollectionID = #{collection_ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.DataCollector" >
+    update datacollector
+    set CollectionID = #{collection_ID,jdbcType=INTEGER},
+      CollectionName =  #{collection_Name,jdbcType=VARCHAR},
+      CollectionCode = #{collection_Code,jdbcType=INTEGER},
+      CollectionTypeID = #{collectionType_ID,jdbcType=INTEGER},
+      StateID = #{state_ID,jdbcType=INTEGER},
+      CollectInterval = #{collect_Interval,jdbcType=VARCHAR},
+      SystemEquipmentTypeID = #{systemEquipmentType_ID,jdbcType=INTEGER},
+      AddrID = #{addr_ID,jdbcType=INTEGER}
+    where CollectionID = #{collection_ID,jdbcType=INTEGER}
+  </update>
+</mapper>

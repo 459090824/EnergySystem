@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.MeterTypeDao" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.MeterType" >
+    <id column="MeterTypeID" property="meterType_ID" jdbcType="INTEGER" />
+    <result column="MeterTypeName" property="meterType_Name" jdbcType="VARCHAR" />
+    <result column="MeterTypeDesc" property="meterType_Desc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MeterTypeID, MeterTypeName, MeterTypeDesc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from metertype
+    where MeterTypeID = #{meterType_ID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from metertype
+    where MeterTypeID = #{meterType_ID,jdbcType=INTEGER}
+  </delete>
+  
+  <select id="selectAllMeterType" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from metertype
+  </select> 
+  
+   <insert id="insert" parameterType="com.energyman.bean.MeterType" >
+    insert into metertype (MeterTypeID, MeterTypeName, MeterTypeDesc)
+    values (#{meterType_ID,jdbcType=INTEGER}, #{meterType_Name,jdbcType=VARCHAR},
+    #{meterType_Desc,jdbcType=VARCHAR})
+  </insert>
+   <insert id="insertSelective" parameterType="com.energyman.bean.MeterType" >
+    insert into metertype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="meterType_ID != null" >
+        MeterTypeID,
+      </if>
+      <if test="meterType_Name != null" >
+        MeterTypeName,
+      </if>
+      <if test="meterType_Desc != null" >
+        MeterTypeDesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="meterType_ID != null" >
+       #{meterType_ID,jdbcType=INTEGER},
+      </if>
+      <if test="meterType_Name != null" >
+        #{meterType_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="meterType_Desc != null" >
+       #{meterType_Desc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.MeterType" >
+    update metertype
+    <set >
+      <if test="meterType_ID != null" >
+        MeterTypeID = #{meterType_ID,jdbcType=INTEGER},
+      </if>
+      <if test="meterType_Name != null" >
+        MeterTypeName = #{meterType_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="meterType_Desc != null" >
+        MeterTypeDesc = #{meterType_Desc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MeterTypeID = #{meterType_ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.MeterType" >
+    update metertype
+    set MeterTypeID = #{meterType_ID,jdbcType=INTEGER},
+      MeterTypeName = #{meterType_Name,jdbcType=VARCHAR},
+      MeterTypeDesc = #{meterType_Desc,jdbcType=VARCHAR}
+    where MeterTypeID = #{meterType_ID,jdbcType=INTEGER}
+  </update>
+</mapper>

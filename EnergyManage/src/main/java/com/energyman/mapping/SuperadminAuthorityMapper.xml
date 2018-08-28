@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.SuperadminAuthorityMapper" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.SuperadminAuthority" >
+    <id column="NoteID" property="noteid" jdbcType="INTEGER" />
+    <result column="AuthorityID" property="authorityid" jdbcType="INTEGER" />
+    <result column="SuperAdminID" property="superadminid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    NoteID, AuthorityID, SuperAdminID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from superadmin_authority
+    where NoteID = #{noteid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from superadmin_authority
+    where NoteID = #{noteid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.energyman.bean.SuperadminAuthority" >
+    insert into superadmin_authority (NoteID, AuthorityID, SuperAdminID
+      )
+    values (#{noteid,jdbcType=INTEGER}, #{authorityid,jdbcType=INTEGER}, #{superadminid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.energyman.bean.SuperadminAuthority" >
+    insert into superadmin_authority
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="noteid != null" >
+        NoteID,
+      </if>
+      <if test="authorityid != null" >
+        AuthorityID,
+      </if>
+      <if test="superadminid != null" >
+        SuperAdminID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="noteid != null" >
+        #{noteid,jdbcType=INTEGER},
+      </if>
+      <if test="authorityid != null" >
+        #{authorityid,jdbcType=INTEGER},
+      </if>
+      <if test="superadminid != null" >
+        #{superadminid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.SuperadminAuthority" >
+    update superadmin_authority
+    <set >
+      <if test="authorityid != null" >
+        AuthorityID = #{authorityid,jdbcType=INTEGER},
+      </if>
+      <if test="superadminid != null" >
+        SuperAdminID = #{superadminid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where NoteID = #{noteid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.SuperadminAuthority" >
+    update superadmin_authority
+    set AuthorityID = #{authorityid,jdbcType=INTEGER},
+      SuperAdminID = #{superadminid,jdbcType=INTEGER}
+    where NoteID = #{noteid,jdbcType=INTEGER}
+  </update>
+</mapper>

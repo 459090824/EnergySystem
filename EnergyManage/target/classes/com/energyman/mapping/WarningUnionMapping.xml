@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.WarningUnionMapper" >
+  <resultMap id="WarningUnionResultMap" type="com.energyman.bean.WarningUnion" >
+    	<id column="WarningID" property="warningid" jdbcType="INTEGER" />
+    	<result column="WarningContent" property="warningcontent" jdbcType="VARCHAR" />
+    	<result column="WarningTime" property="warningtime" jdbcType="TIMESTAMP" />
+    	<result column="ProcessState" property="processstate" jdbcType="INTEGER" />
+    	<result column="WarningTypeID" property="warningtypeid" jdbcType="INTEGER" />
+    	<result column="WarningLevel" property="warninglevel" jdbcType="INTEGER" />
+  <association property="warningType" javaType="com.energyman.bean.WarningType" >
+    	<id column="WarningTypeID" property="warningtypeid" jdbcType="INTEGER" />
+    	<result column="WarningTypeName" property="warningtypename" jdbcType="VARCHAR" />
+    	<result column="WarningTypeDesc" property="warningtypedesc" jdbcType="VARCHAR" />
+  </association>
+  </resultMap>
+  <sql id="Base_Column_Lists" >
+    WarningID, WarningContent, WarningTime, ProcessState, warning.WarningTypeID,  warning.WarningTypeID, 
+    WarningLevel, WarningTypeName, WarningTypeDesc
+  </sql>
+  <select id="selectWarningUnionResult" resultMap="WarningUnionResultMap">
+  	select
+  	<include refid="Base_Column_Lists" />
+  	from warning, warningtype
+  	where warning.WarningTypeID = warning.WarningTypeID
+  </select> 
+ </mapper>

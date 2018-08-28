@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.EquipmentUnionMapper" >
+  <resultMap id="EquipmentUnionResultMap" type="com.energyman.bean.EquipmentUnion" >
+     	<id column="EquipmentID" property="equipment_ID" jdbcType="INTEGER" />
+    	<result column="EquipmentName" property="equipment_Name" jdbcType="VARCHAR" />
+    	<result column="EquipmentCode" property="equipment_Code" jdbcType="INTEGER" />
+    	<result column="EquipmentTypeID" property="equipmentType_ID" jdbcType="INTEGER" />
+   	 	<result column="EquipmentSubTypeID" property="equipmentSubType_ID" jdbcType="INTEGER" />
+    	<result column="EquipmentControlModelID" property="equipmentControlModel_ID" jdbcType="INTEGER" />
+    	<result column="StateID" property="state_ID" jdbcType="INTEGER" />
+    	<result column="IsAutoEquipment" property="isAuto_Equipment" jdbcType="VARCHAR" />
+    	<result column="AddrID" property="addr_ID" jdbcType="INTEGER" />
+    <association property="addr" javaType="com.energyman.bean.Addr">
+    	<id column="AddrID" property="addr_ID" jdbcType="INTEGER" />
+    	<result column="AddrTypeID" property="addrType_ID" jdbcType="INTEGER" />
+    	<result column="AddrCode" property="addr_Code" jdbcType="INTEGER" />
+    </association>
+   	<association property="equipmentControlModel" javaType="com.energyman.bean.EquipmentControlModel" >
+    	<id column="EquipmentControlModelID" property="equipmentControlModel_ID" jdbcType="INTEGER" />
+    	<result column="EquipmentControlModelName" property="equipmentControlModel_Name" jdbcType="VARCHAR" />
+    	<result column="EquipmentControlModelDesc" property="equipmentControlModel_Desc" jdbcType="VARCHAR" />
+  	</association>
+  	<association property="equipmentSubType" javaType="com.energyman.bean.EquipmentSubType" >
+    	<id column="EquipmentSubTypeID" property="equipmentSubType_ID" jdbcType="INTEGER" />
+    	<result column="EquipmentSubTypeName" property="equipmentSubType_Name" jdbcType="VARCHAR" />
+    	<result column="EquipmentSubTypeDesc" property="equipmentSubType_Desc" jdbcType="VARCHAR" />
+  	</association>
+  	<association property="equipmentType" javaType="com.energyman.bean.EquipmentType" >
+    	<id column="EquipmentTypeID" property="equipmentType_ID" jdbcType="INTEGER" />
+    	<result column="EquipmentTypeName" property="equipmentType_Name" jdbcType="VARCHAR" />
+    	<result column="EquipmentTypeDesc" property="equipmentType_Desc" jdbcType="VARCHAR" />
+  	</association>
+  	<association property="state" javaType="com.energyman.bean.State" >
+    	<id column="StateID" property="state_ID" jdbcType="INTEGER" />
+    	<result column="StateName" property="state_Name" jdbcType="VARCHAR" />
+    	<result column="StateDesc" property="state_Desc" jdbcType="VARCHAR" />
+  	</association>
+  	<association property="room" javaType="com.energyman.bean.Room" >
+    	<id column="RoomID" property="room_ID" jdbcType="INTEGER" />
+    	<result column="RoomName" property="room_Name" jdbcType="VARCHAR" />
+    	<result column="RoomCode" property="room_Code" jdbcType="INTEGER" />
+    	<result column="BuildID" property="build_ID" jdbcType="INTEGER" />
+    	<result column="RoomFloor" property="room_Floor" jdbcType="INTEGER" />
+    	<result column="RoomArea" property="room_Area" jdbcType="DOUBLE" />
+    	<result column="RoomEasementOfLight" property="roomEasementOfLight" jdbcType="DOUBLE" />
+  	</association>
+  </resultMap>
+  <sql id="Base_Column_Lists" >
+    EquipmentID, EquipmentName, EquipmentCode, equipment.EquipmentTypeID, equipment.EquipmentSubTypeID, equipment.EquipmentControlModelID, 
+    equipment.StateID, IsAutoEquipment, equipment.AddrID, addr.AddrID, AddrTypeID, AddrCode, equipmentcontrolmodel.EquipmentControlModelID,
+    EquipmentControlModelName, EquipmentControlModelDesc, equipmenttype.EquipmentTypeID, EquipmentTypeName, EquipmentTypeDesc,
+    equipmentsubtype.EquipmentSubTypeID, EquipmentSubTypeName, EquipmentSubTypeDesc, state.StateID, StateName, StateDesc, RoomID, RoomName,
+    RoomCode, BuildID, RoomFloor, RoomArea, RoomEasementOfLight
+  </sql>
+  <select id="selectEquipmentUnionResult" resultMap="EquipmentUnionResultMap">
+    select 
+    <include refid="Base_Column_Lists" />
+	from equipment, addr, equipmentcontrolmodel, equipmentsubtype, equipmenttype, state, room
+    where equipment.EquipmentTypeID = equipmenttype.EquipmentTypeID AND equipment.EquipmentSubTypeID = equipmentsubtype.EquipmentSubTypeID
+    AND equipment.EquipmentControlModelID = equipmentcontrolmodel.EquipmentControlModelID AND equipment.StateID = state.StateID AND 
+    equipment.AddrID = addr.AddrID AND addr.AddrCode = RoomID AND equipment.StateID != #{state_ID,jdbcType=INTEGER}
+  </select>      
+  
+  <select id="selectDispatchEquipment" resultMap="EquipmentUnionResultMap" parameterType="com.energyman.bean.EquipmentUnion">
+    select 
+    <include refid="Base_Column_Lists" />
+	from equipment, addr, equipmentcontrolmodel, equipmentsubtype, equipmenttype, state, room
+    where equipment.EquipmentTypeID = equipmenttype.EquipmentTypeID AND equipment.EquipmentSubTypeID = equipmentsubtype.EquipmentSubTypeID
+    AND equipment.EquipmentControlModelID = equipmentcontrolmodel.EquipmentControlModelID AND equipment.StateID = state.StateID AND 
+    equipment.AddrID = addr.AddrID AND equipment.EquipmentTypeID=#{equipmentType_ID,jdbcType=INTEGER} AND equipment.EquipmentControlModelID = #{equipmentControlModel_ID,jdbcType=INTEGER}
+    AND addr.AddrCode = RoomID
+  </select>   
+  
+  <update id="updateEquipmentHMModel" parameterType="com.energyman.bean.EquipmentUnion" >
+    update equipment, addr, equipmentcontrolmodel, equipmentsubtype, equipmenttype, state
+    set EquipmentControlModelID = #{equipmentControlModel_ID,jdbcType=INTEGER}
+    where EquipmentID = #{equipment_ID,jdbcType=INTEGER} AND equipment.EquipmentTypeID = equipmenttype.EquipmentTypeID AND 
+    equipment.EquipmentSubTypeID = equipmentsubtype.EquipmentSubTypeID AND equipment.EquipmentControlModelID = equipmentcontrolmodel.EquipmentControlModelID 
+    AND equipment.StateID = state.StateID AND equipment.AddrID = addr.AddrID
+  </update>
+   
+  <select id="selectNumByAddr" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select count(EquipmentID)
+    from equipment, addr
+    where equipment.AddrID = addr.AddrID AND AddrCode = #{addr_Code,jdbcType=INTEGER}
+  </select> 
+  
+  <select id="selectEquipmentByCode" resultMap="EquipmentUnionResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_Lists" />
+	from equipment, addr, equipmentcontrolmodel, equipmentsubtype, equipmenttype, state, room
+    where equipment.EquipmentTypeID = equipmenttype.EquipmentTypeID AND equipment.EquipmentSubTypeID = equipmentsubtype.EquipmentSubTypeID
+    AND equipment.EquipmentControlModelID = equipmentcontrolmodel.EquipmentControlModelID AND equipment.StateID = state.StateID AND 
+    equipment.AddrID = addr.AddrID AND equipment.EquipmentCode=#{equipment_Code,jdbcType=INTEGER} AND addr.AddrCode = RoomID
+  </select> 
+  
+  <select id="selectEquipmentByModel" resultMap="EquipmentUnionResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_Lists" />
+	from equipment, addr, equipmentcontrolmodel, equipmentsubtype, equipmenttype, state, room
+    where equipment.EquipmentTypeID = equipmenttype.EquipmentTypeID AND equipment.EquipmentSubTypeID = equipmentsubtype.EquipmentSubTypeID
+    AND equipment.EquipmentControlModelID = equipmentcontrolmodel.EquipmentControlModelID AND equipment.StateID = state.StateID AND 
+    equipment.AddrID = addr.AddrID AND equipment.EquipmentControlModelID=#{equipmentControlModel_ID,jdbcType=INTEGER} AND addr.AddrCode = RoomID
+  </select> 
+  
+  
+  
+  
+    
+  </mapper>

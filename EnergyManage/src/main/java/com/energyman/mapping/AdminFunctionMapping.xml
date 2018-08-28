@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.AdminFunctionDao" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.AdminFunction" >
+    <id column="AdminFunctionID" property="adminFunction_ID" jdbcType="INTEGER" />
+    <result column="FunctionName" property="function_Name" jdbcType="VARCHAR" />
+    <result column="FunctionLocation" property="function_Location" jdbcType="INTEGER" />
+    <result column="FunctionStatus" property="function_Status" jdbcType="INTEGER" />
+    <result column="FunctionPath" property="function_Path" jdbcType="VARCHAR" />
+    <result column="ParentFunction" property="parent_Function" jdbcType="INTEGER" />
+    <result column="FunctionDescription" property="function_Description" jdbcType="VARCHAR" />
+    <result column="FunctionLevel" property="function_Level" jdbcType="INTEGER" />
+    <result column="IsMenu" property="iS_Menu" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="create_Time" jdbcType="TIMESTAMP" />   
+    <result column="IconName" property="icon_Name" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    AdminFunctionID, FunctionName, FunctionLocation, FunctionStatus, FunctionPath, ParentFunction, FunctionDescription, 
+    FunctionLevel, IsMenu, CreateTime, IconName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from adminfunction
+    where AdminFunctionID = #{adminFunction_ID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from adminfunction
+    where AdminFunctionID = #{adminFunction_ID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.energyman.bean.AdminFunction" >
+    insert into adminfunction (AdminFunctionID, FunctionName, FunctionLocation, FunctionStatus, FunctionPath, 
+    ParentFunction, FunctionDescription, FunctionLevel, IsMenu, CreateTime)
+    values (#{adminFunction_ID,jdbcType=INTEGER}, #{function_Name,jdbcType=VARCHAR}, #{function_Location,jdbcType=INTEGER}, 
+      #{function_Status,jdbcType=INTEGER}, #{function_Path,jdbcType=VARCHAR}, #{parent_Function,jdbcType=INTEGER}, 
+      #{function_Description,jdbcType=VARCHAR}, #{function_Level,jdbcType=INTEGER}, #{iS_Menu,jdbcType=VARCHAR}, 
+      #{create_Time,jdbcType=TIMESTAMP}, #{icon_Name,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.energyman.bean.AdminFunction" >
+    insert into adminfunction
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminFunction_ID != null" >
+        AdminFunctionID,
+      </if>
+      <if test="function_Name != null" >
+        FunctionName,
+      </if>
+      <if test="function_Location != null" >
+        FunctionLocation,
+      </if>
+      <if test="function_Status != null" >
+        FunctionStatus,
+      </if>
+      <if test="function_Path != null" >
+        FunctionPath,
+      </if>
+      <if test="parent_Function != null" >
+        ParentFunction,
+      </if>
+      <if test="function_Description != null" >
+        FunctionDescription,
+      </if>
+      <if test="function_Level != null" >
+        FunctionLevel,
+      </if>
+      <if test="iS_Menu != null" >
+        IsMenu,
+      </if>
+      <if test="create_Time != null" >
+        CreateTime,
+      </if>
+      <if test="icon_Name != null" >
+        IconName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminFunction_ID != null" >
+        #{adminFunction_ID,jdbcType=INTEGER},
+      </if>
+      <if test="function_Name != null" >
+        #{function_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="function_Location != null" >
+        #{function_Location,jdbcType=INTEGER},
+      </if>
+      <if test="function_Status != null" >
+        #{function_Status,jdbcType=INTEGER},
+      </if>
+      <if test="function_Path != null" >
+        #{function_Path,jdbcType=VARCHAR},
+      </if>
+      <if test="parent_Function != null" >
+        #{parent_Function,jdbcType=INTEGER},
+      </if>
+      <if test="function_Description != null" >
+        #{function_Description,jdbcType=VARCHAR},
+      </if>
+      <if test="function_Level != null" >
+        #{function_Level,jdbcType=INTEGER},
+      </if>
+      <if test="iS_Menu != null" >
+        #{iS_Menu,jdbcType=VARCHAR},
+      </if>
+      <if test="create_Time != null" >
+        #{create_Time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="icon_Name != null" >
+        #{icon_Name,jdbcType=VARCHAR},
+      </if>   
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.AdminFunction" >
+    update adminfunction
+    <set >
+      <if test="function_Name != null" >
+        FunctionName = #{function_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="function_Location != null" >
+        FunctionLocation = #{function_Location,jdbcType=INTEGER},
+      </if>
+      <if test="function_Status != null" >
+        FunctionStatus = #{function_Status,jdbcType=INTEGER},
+      </if>
+      <if test="function_Path != null" >
+        FunctionPath = #{function_Path,jdbcType=VARCHAR},
+      </if>
+      <if test="parent_Function != null" >
+        ParentFunction = #{parent_Function,jdbcType=INTEGER},
+      </if>
+      <if test="function_Description != null" >
+        FunctionDescription = #{function_Description,jdbcType=VARCHAR},
+      </if>
+      <if test="function_Level != null" >
+        FunctionLevel = #{function_Level,jdbcType=INTEGER},
+      </if>
+      <if test="iS_Menu != null" >
+        IsMenu = #{iS_Menu,jdbcType=VARCHAR},
+      </if>
+      <if test="create_Time != null" >
+        CreateTime =  #{create_Time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="icon_Name != null" >
+        IconName = #{icon_Name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where  AdminFunctionID = #{adminFunction_ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.AdminFunction" >
+    update adminfunction
+    set FunctionName = #{function_Name,jdbcType=VARCHAR},
+      FunctionLocation = #{function_Location,jdbcType=INTEGER},
+      FunctionStatus = #{function_Status,jdbcType=INTEGER},
+      FunctionPath = #{function_Path,jdbcType=VARCHAR},
+      ParentFunction = #{parent_Function,jdbcType=INTEGER},
+      FunctionDescription = #{function_Description,jdbcType=VARCHAR},
+      FunctionLevel = #{function_Level,jdbcType=INTEGER},
+      IsMenu = #{iS_Menu,jdbcType=VARCHAR},
+      CreateTime = #{create_Time,jdbcType=TIMESTAMP},
+      IconName = #{icon_Name,jdbcType=VARCHAR}
+    where AdminFunctionID = #{adminFunction_ID,jdbcType=INTEGER}
+  </update>
+</mapper>

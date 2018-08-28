@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.BuildingUnionMapper" >
+  <resultMap id="BuildingUnionResultMap" type="com.energyman.bean.BuildingUnion" >
+    	<id column="BuildID" property="build_ID" jdbcType="INTEGER" />
+    	<result column="BuildName" property="build_Name" jdbcType="VARCHAR" />
+    	<result column="RegionID" property="region_ID" jdbcType="INTEGER" />
+    	<result column="BuildTypeID" property="buildType_ID" jdbcType="INTEGER" />
+    	<result column="BuildState" property="build_State" jdbcType="INTEGER" />
+    	<result column="BuildUpFloor" property="buildUp_Floor" jdbcType="INTEGER" />
+    	<result column="BuildDownFloor" property="buildDown_Floor" jdbcType="INTEGER" />
+  	<association property="buildingType" javaType="com.energyman.bean.BuildingType" >
+    	<id column="BuildTypeID" property="buildType_ID" jdbcType="INTEGER" />
+    	<result column="BuildTypeName" property="buildType_Name" jdbcType="VARCHAR" />
+    	<result column="BuildTypeDesc" property="buildType_Desc" jdbcType="VARCHAR" />
+  	</association>
+	<association property="area" javaType="com.energyman.bean.Area" >
+    	<id column="RegionID" property="region_ID" jdbcType="INTEGER" />
+    	<result column="RegionName" property="region_Name" jdbcType="VARCHAR" />
+    	<result column="ParkID" property="park_ID" jdbcType="INTEGER" />
+    	<result column="RegionAddr" property="region_Addr" jdbcType="VARCHAR" />
+    	<result column="RegionContact" property="region_Contact" jdbcType="VARCHAR" />
+    	<result column="RegionTel" property="region_Tel" jdbcType="VARCHAR" />
+    	<result column="RegionEmail" property="region_Email" jdbcType="VARCHAR" />
+  	</association>
+  </resultMap>
+  <sql id="Base_Column_Lists" >
+    BuildID, BuildName, building.RegionID, building.BuildTypeID, BuildState, BuildUpFloor, BuildDownFloor,
+    area.RegionID, RegionName, ParkID, RegionAddr, RegionContact, RegionTel, RegionEmail, buildingtype.BuildTypeID, 
+    BuildTypeName, BuildTypeDesc
+  </sql>
+  <select id="selectBuildingUnionResult" resultMap="BuildingUnionResultMap">
+  	select
+  	<include refid="Base_Column_Lists" />
+  	from building, buildingtype, area
+  	where building.RegionID = area.RegionID AND building.BuildTypeID = buildingtype.BuildTypeID 
+ </select>  
+  </mapper>

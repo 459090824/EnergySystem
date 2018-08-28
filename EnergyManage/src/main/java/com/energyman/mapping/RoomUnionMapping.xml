@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.RoomUnionMapper" >
+  <resultMap id="RoomUnionResultMap" type="com.energyman.bean.RoomUnion" >
+    	<id column="RoomID" property="room_ID" jdbcType="INTEGER" />
+    	<result column="RoomName" property="room_Name" jdbcType="VARCHAR" />
+    	<result column="RoomCode" property="room_Code" jdbcType="INTEGER" />
+    	<result column="BuildID" property="build_ID" jdbcType="INTEGER" />
+    	<result column="RoomFloor" property="room_Floor" jdbcType="INTEGER" />
+    	<result column="RoomArea" property="room_Area" jdbcType="DOUBLE" />
+    	<result column="RoomEasementOfLight" property="roomEasementOfLight" jdbcType="DOUBLE" />
+  <association property="building" javaType="com.energyman.bean.Building" >
+    	<id column="BuildID" property="build_ID" jdbcType="INTEGER" />
+    	<result column="BuildName" property="build_Name" jdbcType="VARCHAR" />
+    	<result column="RegionID" property="region_ID" jdbcType="INTEGER" />
+    	<result column="BuildTypeID" property="buildType_ID" jdbcType="INTEGER" />
+    	<result column="BuildState" property="build_State" jdbcType="INTEGER" />
+    	<result column="BuildUpFloor" property="buildUp_Floor" jdbcType="INTEGER" />
+    	<result column="BuildDownFloor" property="buildDown_Floor" jdbcType="INTEGER" />
+  </association>
+  </resultMap>
+  <sql id="Base_Column_Lists" >
+     RoomID, RoomName, RoomCode, room.BuildID, RoomFloor, RoomArea, RoomEasementOfLight, 
+     building.BuildID, BuildName, RegionID, BuildTypeID, BuildState, BuildUpFloor, BuildDownFloor
+  </sql>
+  <select id="selectRoomUnionResult" resultMap="RoomUnionResultMap">
+  	select	
+  	<include refid="Base_Column_Lists" />
+  	from room, building
+  	where room.BuildID = building.BuildID 
+  </select> 
+   
+ </mapper>

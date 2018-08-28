@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.AdminMapper" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.Admin" >
+    <id column="SystemAdminID" property="systemadminid" jdbcType="INTEGER" />
+    <result column="UserName" property="username" jdbcType="VARCHAR" />
+    <result column="Password" property="password" jdbcType="VARCHAR" />
+    <result column="Gender" property="gender" jdbcType="SMALLINT" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="Telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="Address" property="address" jdbcType="VARCHAR" />
+    <result column="Birthday" property="birthday" jdbcType="DATE" />
+    <result column="UserStatus" property="userstatus" jdbcType="INTEGER" />
+    <result column="LittleHeadPortrait" property="littleheadportrait" jdbcType="VARCHAR" />
+    <result column="BigHeadPortrait" property="bigheadportrait" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SystemAdminID, UserName, Password, Gender, Email, Telephone, Address, Birthday, UserStatus, 
+    LittleHeadPortrait, BigHeadPortrait
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+    where SystemAdminID = #{systemadminid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAllAdmin" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+  </select> 
+  
+  <select id="selectAdmin" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	 select 
+    <include refid="Base_Column_List" />
+    from admin
+    where UserName = #{0,jdbcType=VARCHAR} AND Password = #{1,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from admin
+    where SystemAdminID = #{systemadminid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.energyman.bean.Admin" >
+    insert into admin (SystemAdminID, UserName, Password, 
+      Gender, Email, Telephone, 
+      Address, Birthday, UserStatus, 
+      LittleHeadPortrait, BigHeadPortrait)
+    values (#{systemadminid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=SMALLINT}, #{email,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{userstatus,jdbcType=INTEGER}, 
+      #{littleheadportrait,jdbcType=VARCHAR}, #{bigheadportrait,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.energyman.bean.Admin" >
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="systemadminid != null" >
+        SystemAdminID,
+      </if>
+      <if test="username != null" >
+        UserName,
+      </if>
+      <if test="password != null" >
+        Password,
+      </if>
+      <if test="gender != null" >
+        Gender,
+      </if>
+      <if test="email != null" >
+        Email,
+      </if>
+      <if test="telephone != null" >
+        Telephone,
+      </if>
+      <if test="address != null" >
+        Address,
+      </if>
+      <if test="birthday != null" >
+        Birthday,
+      </if>
+      <if test="userstatus != null" >
+        UserStatus,
+      </if>
+      <if test="littleheadportrait != null" >
+        LittleHeadPortrait,
+      </if>
+      <if test="bigheadportrait != null" >
+        BigHeadPortrait,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="systemadminid != null" >
+        #{systemadminid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=SMALLINT},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="userstatus != null" >
+        #{userstatus,jdbcType=INTEGER},
+      </if>
+      <if test="littleheadportrait != null" >
+        #{littleheadportrait,jdbcType=VARCHAR},
+      </if>
+      <if test="bigheadportrait != null" >
+        #{bigheadportrait,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.Admin" >
+    update admin
+    <set >
+      <if test="username != null" >
+        UserName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        Password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        Gender = #{gender,jdbcType=SMALLINT},
+      </if>
+      <if test="email != null" >
+        Email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        Telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        Address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        Birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="userstatus != null" >
+        UserStatus = #{userstatus,jdbcType=INTEGER},
+      </if>
+      <if test="littleheadportrait != null" >
+        LittleHeadPortrait = #{littleheadportrait,jdbcType=VARCHAR},
+      </if>
+      <if test="bigheadportrait != null" >
+        BigHeadPortrait = #{bigheadportrait,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SystemAdminID = #{systemadminid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.Admin" >
+    update admin
+    set UserName = #{username,jdbcType=VARCHAR},
+      Password = #{password,jdbcType=VARCHAR},
+      Gender = #{gender,jdbcType=SMALLINT},
+      Email = #{email,jdbcType=VARCHAR},
+      Telephone = #{telephone,jdbcType=VARCHAR},
+      Address = #{address,jdbcType=VARCHAR},
+      Birthday = #{birthday,jdbcType=DATE},
+      UserStatus = #{userstatus,jdbcType=INTEGER},
+      LittleHeadPortrait = #{littleheadportrait,jdbcType=VARCHAR},
+      BigHeadPortrait = #{bigheadportrait,jdbcType=VARCHAR}
+    where SystemAdminID = #{systemadminid,jdbcType=INTEGER}
+  </update>
+</mapper>

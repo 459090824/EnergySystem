@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.EquipmentDispatchUnionMapper" >
+  <resultMap id="EquipmentDispatchUnionResultMap" type="com.energyman.bean.EquipmentDispatchUnion" >
+    <id column="DispatchID" property="dispatch_ID" jdbcType="INTEGER" />
+    <result column="EquipmentID" property="equipment_ID" jdbcType="INTEGER" />
+    <result column="StartTime" property="start_Time" jdbcType="TIMESTAMP" />
+    <result column="EndTime" property="end_Time" jdbcType="TIMESTAMP" />
+  <association property="equipment" javaType="com.energyman.bean.Equipment" >
+    <id column="EquipmentID" property="equipment_ID" jdbcType="INTEGER" />
+    <result column="EquipmentName" property="equipment_Name" jdbcType="VARCHAR" />
+    <result column="EquipmentCode" property="equipment_Code" jdbcType="INTEGER" />
+    <result column="EquipmentTypeID" property="equipmentType_ID" jdbcType="INTEGER" />
+    <result column="EquipmentSubTypeID" property="equipmentSubType_ID" jdbcType="INTEGER" />
+    <result column="EquipmentControlModelID" property="equipmentControlModel_ID" jdbcType="INTEGER" />
+    <result column="StateID" property="state_ID" jdbcType="INTEGER" />
+    <result column="IsAutoEquipment" property="isAuto_Equipment" jdbcType="VARCHAR" />
+    <result column="AddrID" property="addr_ID" jdbcType="INTEGER" />
+  </association>
+  </resultMap>
+  <sql id="Base_Column_Lists" >
+   DispatchID, equipmentdispatch.EquipmentID, StartTime, EndTime, equipment.EquipmentID, EquipmentName, EquipmentCode, EquipmentTypeID, 
+   EquipmentSubTypeID, EquipmentControlModelID, StateID, IsAutoEquipment, AddrID
+  </sql>
+  
+  <select id="selectEquipmentDispatchUnionResult" resultMap="EquipmentDispatchUnionResultMap">
+    select 
+    <include refid="Base_Column_Lists" />
+    from equipmentdispatch, equipment
+    where equipmentdispatch.EquipmentID = equipment.EquipmentID
+  </select>
+ </mapper>

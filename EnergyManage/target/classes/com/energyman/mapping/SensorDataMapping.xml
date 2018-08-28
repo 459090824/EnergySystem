@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.SensorDataDao" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.SensorData" >
+    <id column="SensorDataID" property="sensorData_ID" jdbcType="INTEGER" />
+    <result column="Content" property="content" jdbcType="VARCHAR" />
+    <result column="CollectionTime" property="collection_Time" jdbcType="DATE" />
+    <result column="SensorID" property="sensor_ID" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SensorDataID, Content, CollectionTime, SensorID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sensordata
+    where SensorDataID = #{sensorData_ID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sensordata
+    where SensorDataID = #{sensorData_ID,jdbcType=INTEGER}
+  </delete>
+   <insert id="insert" parameterType="com.energyman.bean.SensorData" >
+    insert into sensordata (SensorDataID, Content, CollectionTime, SensorID)
+    values (#{sensorData_ID,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{collection_Time,jdbcType=DATE},
+    #{sensor_ID,jdbcType=INTEGER})
+  </insert>
+   <insert id="insertSelective" parameterType="com.energyman.bean.SensorData" >
+    insert into sensordata
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sensorData_ID != null" >
+        SensorDataID,
+      </if>
+      <if test="content != null" >
+        Content,
+      </if>
+      <if test="collection_Time != null" >
+        CollectionTime,
+      </if>
+      <if test="sensor_ID != null" >
+        SensorID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sensorData_ID != null" >
+       #{sensorData_ID,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+      #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="collection_Time != null" >
+      #{collection_Time,jdbcType=DATE},
+      </if>
+      <if test="sensor_ID != null" >
+      #{sensor_ID,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.SensorData" >
+    update sensordata
+    <set >
+      <if test="sensorData_ID != null" >
+        SensorDataID = #{sensorData_ID,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+       	Content =  #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="collection_Time != null" >
+      	CollectionTime = #{collection_Time,jdbcType=DATE},
+      </if>
+      <if test="sensor_ID != null" >
+      	SensorID = #{sensor_ID,jdbcType=INTEGER},
+      </if>
+    </set>
+    where SensorDataID = #{sensorData_ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.SensorData" >
+    update sensordata
+    set SensorDataID = #{sensorData_ID,jdbcType=INTEGER},
+      Content =  #{content,jdbcType=VARCHAR},
+      CollectionTime = #{collection_Time,jdbcType=DATE},
+      SensorID = #{sensor_ID,jdbcType=INTEGER},
+    where SensorDataID = #{sensorData_ID,jdbcType=INTEGER}
+  </update>
+</mapper>

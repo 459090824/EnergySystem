@@ -1,0 +1,154 @@
+.addAdmin {
+  /* form sidebar*/
+}
+.addAdmin .form-wrapper .with-sidebar {
+  border-right: 1px solid #edeef1;
+  box-shadow: 4px 0px 3px -1px rgba(226, 226, 226, 0.1);
+}
+.addAdmin .form-wrapper .container {
+  width: 90%;
+  float: left;
+}
+.addAdmin .form-wrapper .field-box {
+  margin-bottom: 25px;
+  margin-left: 0;
+  float: left;
+  width: 100%;
+}
+.addAdmin .form-wrapper label {
+  display: inline-block;
+  float: left;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: auto;
+  width: 120px;
+}
+.addAdmin .form-wrapper input[type="text"] {
+  margin: 0;
+  padding: 3px 6px;
+  width: 75%;
+  display: inline-block;
+}
+.addAdmin .form-wrapper .address-fields {
+  margin-left: 0px;
+  float: left;
+  width: 75%;
+}
+.addAdmin .form-wrapper .address-fields input[type="text"]:first-child {
+  width: 100%;
+}
+.addAdmin .form-wrapper input.small {
+  width: 27%;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+.addAdmin .form-wrapper input.last {
+  margin-right: 0;
+}
+.addAdmin .form-wrapper input:-moz-placeholder {
+  font-style: italic;
+}
+.addAdmin .form-wrapper input:-ms-input-placeholder {
+  font-style: italic;
+}
+.addAdmin .form-wrapper input::-webkit-input-placeholder {
+  font-style: italic;
+}
+.addAdmin .form-wrapper textarea {
+  height: 88px;
+}
+.addAdmin .textarea {
+  margin-top: 27px;
+}
+.addAdmin .textarea span.charactersleft {
+  color: #9ba0a5;
+  display: inline-block;
+  text-align: left;
+  margin-left: 20%;
+  margin-top: 8px;
+  font-size: 13px;
+  font-style: italic;
+}
+.addAdmin .actions {
+  margin-top: 30px;
+  text-align: right;
+  padding-right: 40px;
+}
+.addAdmin .actions span {
+  text-transform: uppercase;
+  color: #7e91aa;
+  font-weight: 600;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 2px 0 8px;
+}
+.addAdmin .actions input.reset {
+  color: #7e91aa;
+  font-weight: 500;
+}
+.addAdmin .form-sidebar .alert {
+  margin: 20px 0px 60px 0px;
+}
+.addAdmin .form-sidebar .alert i {
+  margin-bottom: 40px;
+}
+.addAdmin .form-sidebar h6 {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.addAdmin .form-sidebar p {
+  color: #777e86;
+}
+.addAdmin .form-sidebar ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.addAdmin .form-sidebar ul a {
+  text-decoration: underline;
+}
+
+/* responsive */
+@media (max-width: 767px) {
+  .addAdmin .form-wrapper .container {
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #edeef1;
+    box-shadow: 0px 4px 3px -1px rgba(226, 226, 226, 0.1);
+  }
+  .addAdmin .form-wrapper .with-sidebar {
+    border-right: 0 none;
+    box-shadow: none;
+  }
+  .addAdmin .form-wrapper label {
+    margin: 0;
+  }
+  .addAdmin .form-wrapper .textarea label {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+  .addAdmin .form-wrapper .textarea textarea {
+    width: 97%;
+  }
+  .addAdmin .textarea span.charactersleft {
+    display: inline-block;
+    margin-left: 0;
+  }
+  .addAdmin .actions {
+    margin-top: 0;
+  }
+  .addAdmin .form-sidebar {
+    margin-top: 40px;
+  }
+}
+@media (max-width: 979px) {
+  .addAdmin .form-wrapper .address-fields {
+    margin-top: 30px;
+    width: 100%;
+  }
+  .addAdmin .form-wrapper input.small {
+    width: inherit;
+    margin: 20px 0px 0px 0px;
+  }
+}

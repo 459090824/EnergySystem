@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.SystemEquipmentSubTypeUnionDao" >
+  <resultMap id="SystemEquipmentSubTypeUnionResultMap" type="com.energyman.bean.SystemEquipmentSubTypeUnion" >
+    <id column="SubTypeID" property="systemEquipmentSubType_ID" jdbcType="INTEGER" />
+    	<result column="SubTypeName" property="systemEquipmentSubType_Name" jdbcType="VARCHAR" />
+    	<result column="SubTypeDesc" property="systemEquipmentSubType_Desc" jdbcType="VARCHAR" />
+    	<result column="SubTypeStateID" property="systemEquipmentSubState_ID" jdbcType="INTEGER" />
+    	<result column="TypeID" property="systemEquipmentType_ID" jdbcType="INTEGER" />
+    <association property="systemEquipmentType" javaType="com.energyman.bean.SystemEquipmentType" >
+    	<id column="TypeID" property="systemEquipmentType_ID" jdbcType="INTEGER" />
+    	<result column="TypeName" property="systemEquipmentType_Name" jdbcType="VARCHAR" />
+    	<result column="TypeDesc" property="systemEquipmentType_Desc" jdbcType="VARCHAR" />
+    	<result column="TypeStateID" property="systemEquipmentState_ID" jdbcType="INTEGER" />
+  </association>
+  </resultMap>
+  <sql id="Base_Column_Lists" >
+  	SubTypeID, SubTypeName, SubTypeDesc, SubTypeStateID, systemequipmentsubtype.TypeID,
+  	systemequipmenttype.TypeID, TypeName, TypeDesc, TypeStateID
+  </sql>
+  <select id="selectSystemEquipmentSubTypeUnionResult" resultMap="SystemEquipmentSubTypeUnionResultMap">
+  	select
+  	<include refid="Base_Column_Lists" />
+  	from systemequipmentsubtype, systemequipmenttype
+  	where systemequipmentsubtype.TypeID = systemequipmenttype.TypeID AND 
+  	SubTypeStateID = #{systemEquipmentSubState_ID,jdbcType=INTEGER}
+  </select>
+ </mapper>

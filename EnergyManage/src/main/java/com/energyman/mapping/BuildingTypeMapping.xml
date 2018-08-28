@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.BuildingTypeDao" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.BuildingType" >
+    <id column="BuildTypeID" property="buildType_ID" jdbcType="INTEGER" />
+    <result column="BuildTypeName" property="buildType_Name" jdbcType="VARCHAR" />
+    <result column="BuildTypeDesc" property="buildType_Desc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BuildTypeID, BuildTypeName, BuildTypeDesc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from buildingtype
+    where BuildTypeID = #{buildType_ID,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAllBuildingType" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from buildingtype
+  </select> 
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from buildingtype
+    where BuildTypeID = #{buildType_ID,jdbcType=INTEGER}
+  </delete>
+   <insert id="insert" parameterType="com.energyman.bean.BuildingType" >
+    insert into buildingtype (BuildTypeID, BuildTypeName, BuildTypeDesc)
+    values (#{buildType_ID,jdbcType=INTEGER}, #{buildType_Name,jdbcType=VARCHAR}, #{buildType_Desc,jdbcType=VARCHAR})
+  </insert>
+   <insert id="insertSelective" parameterType="com.energyman.bean.BuildingType" >
+    insert into buildingtype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="buildType_ID != null" >
+        BuildTypeID,
+      </if>
+      <if test="buildType_Name != null" >
+        BuildTypeName,
+      </if>
+      <if test="buildType_Desc != null" >
+       	BuildTypeDesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="buildType_ID != null" >
+        #{buildType_ID,jdbcType=INTEGER},
+      </if>
+      <if test="buildType_Name != null" >
+       #{buildType_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="buildType_Desc != null" >
+       #{buildType_Desc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.BuildingType" >
+    update buildingtype
+    <set >
+      <if test="buildType_ID != null" >
+        BuildTypeID = #{buildType_ID,jdbcType=INTEGER},
+      </if>
+      <if test="buildType_Name != null" >
+        BuildTypeName = #{buildType_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="buildType_Desc != null" >
+        BuildTypeDesc= #{buildType_Desc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BuildTypeID = #{buildType_ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.BuildingType" >
+    update buildingtype
+    set BuildTypeID = #{buildType_ID,jdbcType=INTEGER},
+      BuildTypeName = #{buildType_Name,jdbcType=VARCHAR},
+      BuildTypeDesc= #{buildType_Desc,jdbcType=VARCHAR}
+    where BuildTypeID = #{buildType_ID,jdbcType=INTEGER}
+  </update>
+</mapper>

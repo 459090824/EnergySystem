@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.EnergyTypeDao" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.EnergyType" >
+    <id column="EnergyTypeID" property="energyType_ID" jdbcType="INTEGER" />
+    <result column="EnergyTypeName" property="energyType_Name" jdbcType="VARCHAR" />
+    <result column="EnergyTypeDesc" property="energyType_Desc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    EnergyTypeID, EnergyTypeName, EnergyTypeDesc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from energytype
+    where EnergyTypeID = #{energyType_ID,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAllEnergyType" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from energytype
+  </select> 
+  
+  <select id="selectCountEnergyType" resultType="java.lang.Integer">
+    select count(*)
+    from energytype
+  </select> 
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from energytype
+    where EnergyTypeID = #{energyType_ID,jdbcType=INTEGER}
+  </delete>
+   <insert id="insert" parameterType="com.energyman.bean.EnergyType" >
+    insert into energytype (EnergyTypeID, EnergyTypeName, EnergyTypeDesc)
+    values (#{energyType_ID,jdbcType=INTEGER}, #{energyType_Name,jdbcType=VARCHAR},
+    #{energyType_Desc,jdbcType=VARCHAR})
+  </insert>
+   <insert id="insertSelective" parameterType="com.energyman.bean.EnergyType" >
+    insert into energytype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="energyType_ID != null" >
+        EnergyTypeID,
+      </if>
+      <if test="energyType_Name != null" >
+        EnergyTypeName,
+      </if>
+      <if test="energyType_Desc != null" >
+        EnergyTypeDesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="energyType_ID != null" >
+       #{energyType_ID,jdbcType=INTEGER},
+      </if>
+      <if test="energyType_Name != null" >
+        #{energyType_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="energyType_Desc != null" >
+       #{energyType_Desc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.EnergyType" >
+    update energytype
+    <set >
+      <if test="energyType_ID != null" >
+        EnergyTypeID = #{energyType_ID,jdbcType=INTEGER},
+      </if>
+      <if test="energyType_Name != null" >
+        EnergyTypeName = #{energyType_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="energyType_Desc != null" >
+        EnergyTypeDesc = #{energyType_Desc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EnergyTypeID = #{energyType_ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.EnergyType" >
+    update energytype
+    set EnergyTypeID = #{energyType_ID,jdbcType=INTEGER},
+      EnergyTypeName = #{energyType_Name,jdbcType=VARCHAR},
+      EnergyTypeDesc = #{energyType_Desc,jdbcType=VARCHAR}
+    where EnergyTypeID = #{energyType_ID,jdbcType=INTEGER}
+  </update>
+</mapper>

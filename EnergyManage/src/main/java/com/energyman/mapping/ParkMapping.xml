@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.ParkDao" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.Park" >
+    <id column="ParkID" property="park_ID" jdbcType="INTEGER" />
+    <result column="ParkName" property="park_Name" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ParkID, ParkName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from park
+    where ParkID = #{park_ID,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAllPark" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from park
+  </select> 
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from park
+    where ParkID = #{park_ID,jdbcType=INTEGER}
+  </delete>
+   <insert id="insert" parameterType="com.energyman.bean.Park" >
+    insert into park (ParkID, ParkName)
+    values (#{park_ID,jdbcType=INTEGER}, #{park_Name,jdbcType=VARCHAR})
+  </insert>
+   <insert id="insertSelective" parameterType="com.energyman.bean.Park" >
+    insert into park
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="park_ID != null" >
+        ParkID,
+      </if>
+      <if test="park_Name != null" >
+        ParkName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="park_ID != null" >
+        #{park_ID,jdbcType=INTEGER},
+      </if>
+      <if test="park_Name != null" >
+        #{park_Name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.Park" >
+    update park
+    <set >
+      <if test="park_ID != null" >
+        ParkID = #{park_ID,jdbcType=INTEGER},
+      </if>
+      <if test="park_Name != null" >
+        ParkName =  #{park_Name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ParkID = #{park_ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.Park" >
+    update park
+    set ParkID = #{park_ID,jdbcType=INTEGER},
+      ParkName =  #{park_Name,jdbcType=VARCHAR}
+    where ParkID = #{park_ID,jdbcType=INTEGER}
+  </update>
+</mapper>

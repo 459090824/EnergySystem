@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.MeterUnionMapper" >
+  <resultMap id="MeterUnionResultMap" type="com.energyman.bean.MeterUnion" >
+    	<id column="MeterID" property="meter_ID" jdbcType="INTEGER" />
+    	<result column="MeterName" property="meter_Name" jdbcType="VARCHAR" />
+    	<result column="MeterCode" property="meter_Code" jdbcType="INTEGER" />
+    	<result column="MeterTypeID" property="meterType_ID" jdbcType="INTEGER" />
+    	<result column="StateID" property="state_ID" jdbcType="INTEGER" />
+    	<result column="CollectionID" property="collection_ID" jdbcType="INTEGER" />
+    	<result column="AddrID" property="addr_ID" jdbcType="INTEGER" />
+    	<result column="SystemEquipmentTypeID" property="systemEquipmentType_ID" jdbcType="INTEGER" />
+   <association property="addr" javaType="com.energyman.bean.Addr">
+     	<id column="AddrID" property="addr_ID" jdbcType="INTEGER" />
+     	<result column="AddrTypeID" property="addrType_ID" jdbcType="INTEGER" />
+     	<result column="AddrCode" property="addr_Code" jdbcType="INTEGER" />
+  </association>
+  <association property="state" javaType="com.energyman.bean.State" >
+    	<id column="StateID" property="state_ID" jdbcType="INTEGER" />
+    	<result column="StateName" property="state_Name" jdbcType="VARCHAR" />
+    	<result column="StateDesc" property="state_Desc" jdbcType="VARCHAR" />
+  </association>
+  <association property="systemEquipmentType" javaType="com.energyman.bean.SystemEquipmentType" >
+    <id column="TypeID" property="systemEquipmentType_ID" jdbcType="INTEGER" />
+    <result column="TypeName" property="systemEquipmentType_Name" jdbcType="VARCHAR" />
+    <result column="TypeDesc" property="systemEquipmentType_Desc" jdbcType="VARCHAR" />
+    <result column="TypeStateID" property="systemEquipmentState_ID" jdbcType="INTEGER" />
+  </association>
+  <association property="systemEquipmentSubType" javaType="com.energyman.bean.SystemEquipmentSubType" >
+    <id column="SubTypeID" property="systemEquipmentSubType_ID" jdbcType="INTEGER" />
+    <result column="SubTypeName" property="systemEquipmentSubType_Name" jdbcType="VARCHAR" />
+    <result column="SubTypeDesc" property="systemEquipmentSubType_Desc" jdbcType="VARCHAR" />
+    <result column="SubTypeStateID" property="systemEquipmentSubState_ID" jdbcType="INTEGER" />
+    <result column="TypeID" property="systemEquipmentType_ID" jdbcType="INTEGER" />
+  </association>
+  <association property="dataCollector" javaType="com.energyman.bean.DataCollector" >
+    	<id column="CollectionID" property="collection_ID" jdbcType="INTEGER" />
+   	 	<result column="CollectionName" property="collection_Name" jdbcType="VARCHAR" />
+    	<result column="CollectionCode" property="collection_Code" jdbcType="INTEGER" />
+    	<result column="CollectionTypeID" property="collectionType_ID" jdbcType="INTEGER" />
+    	<result column="StateID" property="state_ID" jdbcType="INTEGER" />
+    	<result column="CollectInterval" property="collect_Interval" jdbcType="VARCHAR" />
+    	<result column="AddrID" property="addr_ID" jdbcType="INTEGER" />
+  </association>
+  <association property="room" javaType="com.energyman.bean.Room" >
+    	<id column="RoomID" property="room_ID" jdbcType="INTEGER" />
+    	<result column="RoomName" property="room_Name" jdbcType="VARCHAR" />
+    	<result column="RoomCode" property="room_Code" jdbcType="INTEGER" />
+    	<result column="BuildID" property="build_ID" jdbcType="INTEGER" />
+    	<result column="RoomFloor" property="room_Floor" jdbcType="INTEGER" />
+    	<result column="RoomArea" property="room_Area" jdbcType="DOUBLE" />
+    	<result column="RoomEasementOfLight" property="roomEasementOfLight" jdbcType="DOUBLE" />
+  </association>
+  </resultMap>
+  <sql id="Base_Column_Lists" >
+    MeterID, MeterName, MeterCode, meter.MeterTypeID, meter.StateID, meter.CollectionID, meter.AddrID,
+    addr.AddrID, meter.SystemEquipmentTypeID, AddrTypeID, AddrCode, state.StateID, StateName, StateDesc, systemEquipmentType.TypeID, 
+    TypeName, TypeDesc, TypeStateID, SubTypeID, SubTypeName, SubTypeDesc, SubTypeStateID, systemEquipmentSubType.TypeID,
+    dataCollector.CollectionID, CollectionName, CollectionCode, CollectionTypeID, dataCollector.StateID, CollectInterval, 
+    dataCollector.AddrID, RoomID, RoomName,RoomCode, BuildID, RoomFloor, RoomArea, RoomEasementOfLight
+  </sql>
+  <select id="selectMeterUnionResult" resultMap="MeterUnionResultMap">
+  	select
+  	<include refid="Base_Column_Lists"/>
+  	from meter, addr, systemequipmenttype, systemequipmentsubtype, state, datacollector, room
+  	where meter.MeterTypeID = systemequipmentsubtype.SubTypeID AND systemequipmenttype.TypeID = systemequipmentsubtype.TypeID
+  	AND meter.StateID = state.StateID AND meter.CollectionID= datacollector.CollectionID AND meter.AddrID = addr.AddrID AND 
+  	addr.AddrCode = RoomID AND meter.StateID != #{state_ID,jdbcType=INTEGER}
+ </select>
+ </mapper>

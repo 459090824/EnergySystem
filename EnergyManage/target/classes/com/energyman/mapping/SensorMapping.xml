@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.SensorDao" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.Sensor" >
+    <id column="SensorID" property="sensor_ID" jdbcType="INTEGER" />
+    <result column="SensorName" property="sensor_Name" jdbcType="VARCHAR" />
+    <result column="SensorCode" property="sensor_Code" jdbcType="INTEGER" />
+    <result column="SensorTypeID" property="sensorType_ID" jdbcType="INTEGER" />
+    <result column="StateID" property="state_ID" jdbcType="INTEGER" />
+    <result column="SensorInterval" property="sensor_Interval" jdbcType="VARCHAR" />
+    <result column="AddrID" property="addr_ID" jdbcType="INTEGER" />
+    <result column="SystemEquipmentTypeID" property="systemEquipmentType_ID" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SensorID, SensorName, SensorCode, SensorTypeID, StateID, SensorInterval, AddrID, SystemEquipmentTypeID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sensor
+    where SensorID = #{sensor_ID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sensor
+    where SensorID = #{sensor_ID,jdbcType=INTEGER}
+  </delete>
+   <insert id="insert" parameterType="com.energyman.bean.Sensor" >
+    insert into sensor (SensorID, SensorName, SensorCode, SensorTypeID, StateID, SensorInterval, AddrID, SystemEquipmentTypeID)
+    values (#{sensor_ID,jdbcType=INTEGER}, #{sensor_Name,jdbcType=VARCHAR}, #{sensor_Code,jdbcType=INTEGER},
+    #{sensorType_ID,jdbcType=INTEGER}, #{state_ID,jdbcType=INTEGER}, #{sensor_Interval,jdbcType=VARCHAR},
+    #{addr_ID,jdbcType=INTEGER}, #{systemEquipmentType_ID,jdbcType=INTEGER})
+  </insert>
+   <insert id="insertSelective" parameterType="com.energyman.bean.Sensor" >
+    insert into sensor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sensor_ID != null" >
+        SensorID,
+      </if>
+      <if test="sensor_Name != null" >
+        SensorName,
+      </if>
+      <if test="sensor_Code != null" >
+        SensorCode,
+      </if>
+      <if test="sensorType_ID != null" >
+        SensorTypeID,
+      </if>
+      <if test="state_ID != null" >
+        StateID,
+      </if>
+      <if test="sensor_Interval != null" >
+        SensorInterval,
+      </if>
+      <if test="addr_ID != null" >
+        AddrID,
+      </if>
+      <if test="systemEquipmentType_ID != null" >
+        SystemEquipmentTypeID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sensor_ID != null" >
+       #{sensor_ID,jdbcType=INTEGER},
+      </if>
+      <if test="sensor_Name != null" >
+      #{sensor_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="sensor_Code != null" >
+      #{sensor_Code,jdbcType=INTEGER},
+      </if>
+      <if test="sensorType_ID != null" >
+      #{sensorType_ID,jdbcType=INTEGER},
+      </if>
+      <if test="state_ID != null" >
+      #{state_ID,jdbcType=INTEGER},
+      </if>
+      <if test="sensor_Interval != null" >
+      #{sensor_Interval,jdbcType=VARCHAR},
+      </if>
+      <if test="addr_ID != null" >
+      #{addr_ID,jdbcType=INTEGER},
+      </if>
+      <if test="systemEquipmentType_ID != null" >
+       #{systemEquipmentType_ID,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.Sensor" >
+    update sensor
+    <set >
+      <if test="sensor_ID != null" >
+        SensorID = #{sensor_ID,jdbcType=INTEGER},
+      </if>
+      <if test="sensor_Name != null" >
+       	SensorName =  #{sensor_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="sensor_Code != null" >
+      	SensorCode = #{sensor_Code,jdbcType=INTEGER},
+      </if>
+      <if test="sensorType_ID != null" >
+      	SensorTypeID = #{sensorType_ID,jdbcType=INTEGER},
+      </if>
+      <if test="state_ID != null" >
+      	StateID = #{state_ID,jdbcType=INTEGER},
+      </if>
+      <if test="sensor_Interval != null" >
+      	SensorInterval = #{sensor_Interval,jdbcType=VARCHAR},
+      </if>
+      <if test="addr_ID != null" >
+      	AddrID = #{addr_ID,jdbcType=INTEGER},
+      </if>
+      <if test="systemEquipmentType_ID != null" >
+      	SystemEquipmentTypeID = #{systemEquipmentType_ID,jdbcType=INTEGER},
+      </if>
+    </set>
+    where SensorID = #{sensor_ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.Sensor" >
+    update sensor
+    set SensorID = #{sensor_ID,jdbcType=INTEGER},
+      SensorName =  #{sensor_Name,jdbcType=VARCHAR},
+      SensorCode = #{sensor_Code,jdbcType=INTEGER},
+      SensorTypeID = #{sensorType_ID,jdbcType=INTEGER},
+      StateID = #{state_ID,jdbcType=INTEGER},
+      SensorInterval = #{sensor_Interval,jdbcType=VARCHAR},
+      SystemEquipmentTypeID = #{systemEquipmentType_ID,jdbcType=INTEGER},
+      AddrID = #{addr_ID,jdbcType=INTEGER}
+    where SensorID = #{sensor_ID,jdbcType=INTEGER}
+
+  </update>
+</mapper>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.SuddenDispatchMapper" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.SuddenDispatch" >
+    <id column="DispatchID" property="dispatch_ID" jdbcType="INTEGER" />
+    <result column="EquipmentID" property="equipment_ID" jdbcType="INTEGER" />
+    <result column="StartTime" property="start_Time" jdbcType="TIMESTAMP" />
+    <result column="EndTime" property="end_Time" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DispatchID, EquipmentID, StartTime, EndTime 
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from suddendispatch
+    where DispatchID = #{dispatch_ID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from suddendispatch
+    where DispatchID = #{dispatch_ID,jdbcType=INTEGER}
+  </delete>
+  
+  
+  
+   <insert id="insert" parameterType="com.energyman.bean.SuddenDispatch" >
+    insert into suddendispatch (DispatchID, EquipmentID, StartTime, EndTime)
+    values (#{dispatch_ID,jdbcType=INTEGER}, #{equipment_ID,jdbcType=INTEGER},
+    #{start_Time,jdbcType=TIMESTAMP}, #{end_Time,jdbcType=TIMESTAMP})
+  </insert>
+   <insert id="insertSelective" parameterType="com.energyman.bean.SuddenDispatch" >
+    insert into suddendispatch
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dispatch_ID != null" >
+        DispatchID,
+      </if>
+      <if test="equipment_ID != null" >
+        EquipmentID,
+      </if>
+      <if test="start_Time != null" >
+        StartTime,
+      </if>
+      <if test="end_Time != null" >
+        EndTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dispatch_ID != null" >
+        #{dispatch_ID,jdbcType=INTEGER},
+      </if>
+      <if test="equipment_ID != null" >
+        #{equipment_ID,jdbcType=INTEGER},
+      </if>
+      <if test="start_Time != null" >
+       	#{start_Time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="end_Time != null" >
+       	#{end_Time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.SuddenDispatch" >
+    update suddendispatch
+    <set >
+      <if test="dispatch_ID != null" >
+        DispatchID = #{dispatch_ID,jdbcType=INTEGER},
+      </if>
+      <if test="equipment_ID != null" >
+        EquipmentID = #{equipment_ID,jdbcType=INTEGER},
+      </if>
+      <if test="start_Time != null" >
+        StartTime = #{start_Time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="end_Time != null" >
+        EndTime = #{end_Time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where DispatchID = #{dispatch_ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.SuddenDispatch" >
+    update suddendispatch
+    set DispatchID = #{dispatch_ID,jdbcType=INTEGER},
+      EquipmentID = #{equipment_ID,jdbcType=INTEGER},
+      StartTime = #{start_Time,jdbcType=TIMESTAMP},
+      EndTime = #{end_Time,jdbcType=TIMESTAMP}
+    where DispatchID = #{dispatch_ID,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.AdminAuthorityJudgeDao" >
+  <resultMap id="SelfBaseResultMap" type="com.energyman.bean.AdminAuthorityJudge" >
+    <id column="NoteID" property="noteid" jdbcType="INTEGER" />
+    <result column="AuthorityID" property="authorityid" jdbcType="INTEGER" />
+    <result column="SystemAdminID" property="systemadminid" jdbcType="INTEGER" />
+    <association property="authority" javaType="com.energyman.bean.Authority">
+	    <id column="AuthorityID" property="authorityid" jdbcType="INTEGER" />
+    	<result column="AdminFunctionID" property="adminfunctionid" jdbcType="INTEGER" />
+    	<result column="AuthorityTypeID" property="authoritytypeid" jdbcType="INTEGER" />
+    	<result column="AuthorityName" property="authorityname" jdbcType="VARCHAR" />
+    	<result column="AuthorityDescription" property="authoritydescription" jdbcType="VARCHAR" />
+    	<result column="AuthorityStatus" property="authoritystatus" jdbcType="INTEGER" />
+    	<result column="AuthorityTime" property="authoritytime" jdbcType="TIMESTAMP" />
+    	<result column="AuthorityCreator" property="authoritycreator" jdbcType="INTEGER" /> 
+    </association>
+    <association property="admin" javaType="com.energyman.bean.Admin" >
+    	<id column="SystemAdminID" property="systemadminid" jdbcType="INTEGER" />
+    	<result column="UserName" property="username" jdbcType="VARCHAR" />
+    	<result column="Password" property="password" jdbcType="VARCHAR" />
+    	<result column="Gender" property="gender" jdbcType="SMALLINT" />
+    	<result column="Email" property="email" jdbcType="VARCHAR" />
+    	<result column="Telephone" property="telephone" jdbcType="VARCHAR" />
+    	<result column="Address" property="address" jdbcType="VARCHAR" />
+    	<result column="Birthday" property="birthday" jdbcType="DATE" />
+    	<result column="UserStatus" property="userstatus" jdbcType="INTEGER" />
+    	<result column="LittleHeadPortrait" property="littleheadportrait" jdbcType="VARCHAR" />
+    	<result column="BigHeadPortrait" property="bigheadportrait" jdbcType="VARCHAR" />
+  </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    NoteID, admin_authority.AuthorityID, admin_authority.SystemAdminID, authority.AuthorityID, AdminFunctionID, AuthorityTypeID, AuthorityName, AuthorityDescription, 
+    AuthorityStatus, AuthorityTime, AuthorityCreator, admin.SystemAdminID, UserName, Password, Gender, Email, Telephone, Address, Birthday, UserStatus, LittleHeadPortrait,
+    BigHeadPortrait   
+  </sql>
+  <select id="selectAdminFunctionAuthorityByAdmin" resultMap="SelfBaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from admin_authority, authority, admin
+    where admin_authority.AuthorityID = authority.AuthorityID AND admin_authority.SystemAdminID = admin.SystemAdminID AND admin.SystemAdminID = #{0,jdbcType=INTEGER}
+    AND AdminFunctionID = #{1,jdbcType=INTEGER} AND AuthorityTypeID = #{2,jdbcType=INTEGER} AND AuthorityStatus = #{3,jdbcType=INTEGER}
+  </select>
+</mapper>

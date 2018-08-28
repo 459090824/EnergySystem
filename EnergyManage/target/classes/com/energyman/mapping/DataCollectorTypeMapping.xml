@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.DataCollectorTypeDao" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.DataCollectorType" >
+    <id column="CollectionTypeID" property="collectionType_ID" jdbcType="INTEGER" />
+    <result column="CollectionTypeName" property="collectionType_Name" jdbcType="VARCHAR" />
+    <result column="CollectionTypeDesc" property="collectionType_Desc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CollectionTypeID, CollectionTypeName, CollectionTypeDesc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from datacollectortype
+    where CollectionTypeID = #{collectionType_ID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from datacollectortype
+    where CollectionTypeID = #{collectionType_ID,jdbcType=INTEGER}
+  </delete>
+  
+   <select id="selectAllDataCollectorType" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from datacollectortype
+  </select> 
+  
+  
+   <insert id="insert" parameterType="com.energyman.bean.DataCollectorType" >
+    insert into datacollectortype (CollectionTypeID, CollectionTypeName, CollectionTypeDesc)
+    values (#{collectionType_ID,jdbcType=INTEGER}, #{collectionType_Name,jdbcType=VARCHAR},
+    #{collectionType_Desc,jdbcType=VARCHAR})
+  </insert>
+   <insert id="insertSelective" parameterType="com.energyman.bean.DataCollectorType" >
+    insert into datacollectortype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="collectionType_ID != null" >
+        CollectionTypeID,
+      </if>
+      <if test="collectionType_Name != null" >
+        CollectionTypeName,
+      </if>
+      <if test="collectionType_Desc != null" >
+        CollectionTypeDesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="collectionType_ID != null" >
+       #{collectionType_ID,jdbcType=INTEGER},
+      </if>
+      <if test="collectionType_Name != null" >
+        #{collectionType_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionType_Desc != null" >
+       #{collectionType_Desc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.DataCollectorType" >
+    update datacollectortype
+    <set >
+      <if test="collectionType_ID != null" >
+        CollectionTypeID = #{collectionType_ID,jdbcType=INTEGER},
+      </if>
+      <if test="collectionType_Name != null" >
+        CollectionTypeName = #{collectionType_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionType_Desc != null" >
+        CollectionTypeDesc = #{collectionType_Desc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CollectionTypeID = #{collectionType_ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.DataCollectorType" >
+    update datacollectortype
+    set CollectionTypeID = #{collectionType_ID,jdbcType=INTEGER},
+      CollectionTypeName = #{collectionType_Name,jdbcType=VARCHAR},
+      CollectionTypeDesc = #{collectionType_Desc,jdbcType=VARCHAR}
+    where CollectionTypeID = #{collectionType_ID,jdbcType=INTEGER}
+  </update>
+</mapper>

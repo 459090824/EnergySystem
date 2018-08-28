@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.StateDao" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.State" >
+    <id column="StateID" property="state_ID" jdbcType="INTEGER" />
+    <result column="StateName" property="state_Name" jdbcType="VARCHAR" />
+    <result column="StateDesc" property="state_Desc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    StateID, StateName, StateDesc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from state
+    where StateID = #{state_ID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from state
+    where StateID = #{state_ID,jdbcType=INTEGER}
+  </delete>
+  
+  <select id="selectAllState" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from state
+  </select> 
+  
+   <insert id="insert" parameterType="com.energyman.bean.State" >
+    insert into state (StateID, StateName, StateDesc)
+    values (#{state_ID,jdbcType=INTEGER}, #{state_Name,jdbcType=VARCHAR}, #{state_Desc,jdbcType=VARCHAR})
+  </insert>
+   <insert id="insertSelective" parameterType="com.energyman.bean.State" >
+    insert into state
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="state_ID != null" >
+        StateID,
+      </if>
+      <if test="state_Name != null" >
+        StateName,
+      </if>
+      <if test="state_Desc != null" >
+        StateDesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="state_ID != null" >
+        #{state_ID,jdbcType=INTEGER},
+      </if>
+      <if test="state_Name != null" >
+       #{state_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="state_Desc != null" >
+       #{state_Desc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.State" >
+    update state
+    <set >
+      <if test="state_ID != null" >
+        StateID = #{state_ID,jdbcType=INTEGER},
+      </if>
+      <if test="state_Name != null" >
+        StateName = #{state_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="state_Desc != null" >
+        StateDesc= #{state_Desc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where StateID = #{state_ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.State" >
+    update state
+    set StateID = #{state_ID,jdbcType=INTEGER},
+      StateName = #{state_Name,jdbcType=VARCHAR},
+      StateDesc= #{state_Desc,jdbcType=VARCHAR}
+    where StateID = #{state_ID,jdbcType=INTEGER}
+  </update>
+</mapper>

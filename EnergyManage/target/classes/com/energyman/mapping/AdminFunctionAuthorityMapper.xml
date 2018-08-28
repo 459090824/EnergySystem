@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.AdminFunctionAuthorityDao" >
+  <resultMap id="AdminFunctionAuthorityResultMap" type="com.energyman.bean.AdminFunctionAuthority" >
+   	<id column="AdminFunctionID" property="adminFunction_ID" jdbcType="INTEGER" />
+    <result column="FunctionName" property="function_Name" jdbcType="VARCHAR" />
+    <result column="FunctionLocation" property="function_Location" jdbcType="INTEGER" />
+    <result column="FunctionStatus" property="function_Status" jdbcType="INTEGER" />
+    <result column="FunctionPath" property="function_Path" jdbcType="VARCHAR" />
+    <result column="ParentFunction" property="parent_Function" jdbcType="INTEGER" />
+    <result column="FunctionDescription" property="function_Description" jdbcType="VARCHAR" />
+    <result column="FunctionLevel" property="function_Level" jdbcType="INTEGER" />
+    <result column="IsMenu" property="iS_Menu" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="create_Time" jdbcType="TIMESTAMP" />   
+    <result column="IconName" property="icon_Name" jdbcType="VARCHAR" />
+    <collection property="adminFunctionAuthorityList" javaType="ArrayList" ofType="com.energyman.bean.Authority">
+	    <id column="AuthorityID" property="authorityid" jdbcType="INTEGER" />
+    	<result column="AdminFunctionID" property="adminfunctionid" jdbcType="INTEGER" />
+    	<result column="AuthorityTypeID" property="authoritytypeid" jdbcType="INTEGER" />
+    	<result column="AuthorityName" property="authorityname" jdbcType="VARCHAR" />
+    	<result column="AuthorityDescription" property="authoritydescription" jdbcType="VARCHAR" />
+    	<result column="AuthorityStatus" property="authoritystatus" jdbcType="INTEGER" />
+    	<result column="AuthorityTime" property="authoritytime" jdbcType="TIMESTAMP" />
+    	<result column="AuthorityCreator" property="authoritycreator" jdbcType="INTEGER" />	
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_Lists" >
+    adminfunction.AdminFunctionID, FunctionName, FunctionLocation, FunctionStatus, FunctionPath, ParentFunction, FunctionDescription, 
+    FunctionLevel, IsMenu, CreateTime, IconName, AuthorityID, authority.AdminFunctionID, AuthorityTypeID, AuthorityName, AuthorityDescription, 
+    AuthorityStatus, AuthorityTime, AuthorityCreator
+  </sql>
+<!--    <select id="selectAdminFunctionAuthorityListResultByAuthorityStatus" resultMap="AdminFunctionResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_Lists" />
+	from admin_function, authority
+    where authority.authority_status = #{authorityStatus,jdbcType=INTEGER} AND admin_function.admin_function_id = authority.admin_function_id 
+  </select>  
+  <select id="selectAdminFunctionAuthorityListResultByAuthorityStatusAndAdminFunctionId" resultMap="AdminFunctionResultMap">
+    select 
+    <include refid="Base_Column_Lists" />
+	from admin_function, authority
+    where authority.authority_status = #{0,jdbcType=INTEGER} AND admin_function.admin_function_id = authority.admin_function_id AND admin_function.admin_function_id =  #{1,jdbcType=INTEGER}
+  </select>  
+-->
+  <select id="selectAdminFunctionAuthorityListResult" resultMap="AdminFunctionAuthorityResultMap">
+    select 
+    <include refid="Base_Column_Lists" />
+	from adminfunction, authority
+    where adminfunction.AdminFunctionID = authority.AdminFunctionID 
+  </select>          
+</mapper>

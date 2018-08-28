@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.SystemEquipmentSubTypeDao" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.SystemEquipmentSubType" >
+    <id column="SubTypeID" property="systemEquipmentSubType_ID" jdbcType="INTEGER" />
+    <result column="SubTypeName" property="systemEquipmentSubType_Name" jdbcType="VARCHAR" />
+    <result column="SubTypeDesc" property="systemEquipmentSubType_Desc" jdbcType="VARCHAR" />
+    <result column="SubTypeStateID" property="systemEquipmentSubState_ID" jdbcType="INTEGER" />
+    <result column="TypeID" property="systemEquipmentType_ID" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SubTypeID, SubTypeName, SubTypeDesc, SubTypeStateID, TypeID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from systemequipmentsubtype
+    where SubTypeID = #{systemEquipmentSubType_ID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from systemequipmentsubtype
+    where SubTypeID = #{systemEquipmentSubType_ID,jdbcType=INTEGER}
+  </delete>
+  
+  <select id="selectAllSystemEquipmentSubType" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from systemequipmentsubtype
+    where SubTypeStateID = #{systemEquipmentSubState_ID,jdbcType=INTEGER}
+  </select> 
+  
+  
+  <select id="selectSystemEquipmentSubTypeBySystemEquipmentType" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from systemequipmentsubtype
+    where TypeID = #{0,jdbcType=INTEGER} AND SubTypeStateID = #{1,jdbcType=INTEGER}
+  </select> 
+  
+  
+  
+   <insert id="insert" parameterType="com.energyman.bean.SystemEquipmentSubType" >
+    insert into systemequipmentsubtype (SubTypeID, SubTypeName, SubTypeDesc, SubTypeStateID, TypeID)
+    values (#{systemEquipmentSubType_ID,jdbcType=INTEGER}, #{systemEquipmentSubType_Name,jdbcType=VARCHAR},
+    #{systemEquipmentSubType_Desc,jdbcType=VARCHAR}, #{systemEquipmentSubState_ID,jdbcType=INTEGER},
+    #{systemEquipmentType_ID,jdbcType=INTEGER})
+  </insert>
+   <insert id="insertSelective" parameterType="com.energyman.bean.SystemEquipmentSubType" >
+    insert into systemequipmentsubtype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="systemEquipmentSubType_ID != null" >
+        SubTypeID,
+      </if>
+      <if test="systemEquipmentSubType_Name != null" >
+        SubTypeName,
+      </if>
+      <if test="systemEquipmentSubType_Desc != null" >
+        SubTypeDesc,
+      </if>
+      <if test="systemEquipmentSubState_ID != null" >
+        SubTypeStateID,
+      </if>
+      <if test="systemEquipmentType_ID != null" >
+        TypeID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="systemEquipmentSubType_ID != null" >
+       #{systemEquipmentSubType_ID,jdbcType=INTEGER},
+      </if>
+      <if test="systemEquipmentSubType_Name != null" >
+        #{systemEquipmentSubType_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="systemEquipmentSubType_Desc != null" >
+       #{systemEquipmentSubType_Desc,jdbcType=VARCHAR},
+      </if>
+      <if test="systemEquipmentSubState_ID != null" >
+       #{systemEquipmentSubState_ID,jdbcType=INTEGER},
+      </if>
+      <if test="systemEquipmentType_ID != null" >
+       #{systemEquipmentType_ID,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.SystemEquipmentSubType" >
+    update systemequipmentsubtype
+    <set >
+      <if test="systemEquipmentSubType_ID != null" >
+        SubTypeID = #{systemEquipmentSubType_ID,jdbcType=INTEGER},
+      </if>
+      <if test="systemEquipmentSubType_Name != null" >
+        SubTypeName = #{systemEquipmentSubType_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="systemEquipmentSubType_Desc != null" >
+        SubTypeDesc = #{systemEquipmentSubType_Desc,jdbcType=VARCHAR},
+      </if>
+      <if test="systemEquipmentSubState_ID != null" >
+        SubTypeStateID = #{systemEquipmentSubState_ID,jdbcType=INTEGER},
+      </if>
+      <if test="systemEquipmentType_ID != null" >
+        TypeID = #{systemEquipmentType_ID,jdbcType=INTEGER},
+      </if>
+    </set>
+    where SubTypeID = #{systemEquipmentSubType_ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.SystemEquipmentSubType" >
+    update systemequipmentsubtype
+    set SubTypeID = #{systemEquipmentSubType_ID,jdbcType=INTEGER},
+      SubTypeName = #{systemEquipmentSubType_Name,jdbcType=VARCHAR},
+      SubTypeDesc = #{systemEquipmentSubType_Desc,jdbcType=VARCHAR},
+      SubTypeStateID = #{systemEquipmentSubState_ID,jdbcType=INTEGER},
+      TypeID = #{systemEquipmentType_ID,jdbcType=INTEGER}
+    where SubTypeID = #{systemEquipmentSubType_ID,jdbcType=INTEGER}
+  </update>
+</mapper>

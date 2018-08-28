@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.SystemInfoDao" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.SystemInfo" >
+    <id column="InforID" property="inforID" jdbcType="INTEGER" />
+    <result column="InforContent" property="inforContent" jdbcType="VARCHAR" />
+    <result column="InforTime" property="inforTime" jdbcType="TIMESTAMP" />
+    <result column="ProcessState" property="processState" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    InforID, InforContent, InforTime, ProcessState
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from systeminfo
+    where InforID = #{inforID,jdbcType=INTEGER}
+  </select>
+  
+  
+  <select id="selectAllSystemInfo" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from systeminfo
+  </select> 
+  
+  <select id="countAllSystemInfo" resultType="java.lang.Integer">
+    select count(*)
+    from systeminfo
+  </select>
+  
+  
+   
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from systeminfo
+    where InforID = #{inforID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.energyman.bean.SystemInfo" >
+    insert into systeminfo (InforID, InforContent, InforTime, ProcessState)
+    values (#{inforID,jdbcType=INTEGER}, #{inforContent,jdbcType=VARCHAR}, #{inforTime,jdbcType=TIMESTAMP}, 
+      #{processState,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.energyman.bean.SystemInfo" >
+    insert into systeminfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="inforID != null" >
+        InforID,
+      </if>
+      <if test="inforContent != null" >
+        InforContent,
+      </if>
+      <if test="inforTime != null" >
+        InforTime,
+      </if>
+      <if test="processState != null" >
+        ProcessState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="inforID != null" >
+        #{inforID,jdbcType=INTEGER},
+      </if>
+      <if test="inforContent != null" >
+        #{inforContent,jdbcType=VARCHAR},
+      </if>
+      <if test="inforTime != null" >
+        #{inforTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processState != null" >
+        #{processState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.SystemInfo" >
+    update systeminfo
+    <set >
+      <if test="inforID != null" >
+        InforID = #{inforID,jdbcType=INTEGER},
+      </if>
+      <if test="inforContent != null" >
+        InforContent = #{inforContent,jdbcType=VARCHAR},
+      </if>
+      <if test="inforTime != null" >
+        InforTime = #{inforTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processState != null" >
+        ProcessState = #{processState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where InforID = #{inforID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.SystemInfo" >
+    update systeminfo
+    set InforContent = #{inforContent,jdbcType=VARCHAR},
+        InforTime = #{inforTime,jdbcType=TIMESTAMP},
+        ProcessState = #{processState,jdbcType=INTEGER}
+    where  InforID = #{inforID,jdbcType=INTEGER}
+  </update>
+</mapper>

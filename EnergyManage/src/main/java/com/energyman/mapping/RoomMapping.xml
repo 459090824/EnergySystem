@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.RoomDao" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.Room" >
+    <id column="RoomID" property="room_ID" jdbcType="INTEGER" />
+    <result column="RoomName" property="room_Name" jdbcType="VARCHAR" />
+    <result column="RoomCode" property="room_Code" jdbcType="INTEGER" />
+    <result column="BuildID" property="build_ID" jdbcType="INTEGER" />
+    <result column="RoomFloor" property="room_Floor" jdbcType="INTEGER" />
+    <result column="RoomArea" property="room_Area" jdbcType="DOUBLE" />
+    <result column="RoomEasementOfLight" property="roomEasementOfLight" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RoomID, RoomName, RoomCode, BuildID, RoomFloor, RoomArea, RoomEasementOfLight
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from room
+    where RoomID = #{room_ID,jdbcType=INTEGER}
+  </select>
+  
+   <select id="selectAllRoom" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from room
+  </select> 
+  
+  <select id="selectByBuilding" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from room
+    where BuildID = #{build_ID,jdbcType=INTEGER}
+  </select>
+   
+   
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from room
+    where RoomID = #{room_ID,jdbcType=INTEGER}
+  </delete>
+   <insert id="insert" parameterType="com.energyman.bean.Room" >
+    insert into room (RoomID, RoomName, RoomCode, BuildID, RoomFloor, RoomArea, RoomEasementOfLight)
+    values (#{room_ID,jdbcType=INTEGER}, #{room_Name,jdbcType=VARCHAR}, #{room_Code,jdbcType=INTEGER},
+    #{build_ID,jdbcType=INTEGER}, #{room_Floor,jdbcType=INTEGER}, #{room_Area,jdbcType=DOUBLE},
+    #{roomEasementOfLight,jdbcType=DOUBLE})
+  </insert>
+   <insert id="insertSelective" parameterType="com.energyman.bean.Room" >
+    insert into room
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="room_ID != null" >
+        RoomID,
+      </if>
+      <if test="room_Name != null" >
+        RoomName,
+      </if>
+      <if test="room_Code != null" >
+        RoomCode,
+      </if>
+      <if test="build_ID != null" >
+        BuildID,
+      </if>
+      <if test="room_Floor != null" >
+        RoomFloor,
+      </if>
+      <if test="room_Area != null" >
+        RoomArea,
+      </if>
+      <if test="roomEasementOfLight != null" >
+        RoomEasementOfLight,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="room_ID != null" >
+       #{room_ID,jdbcType=INTEGER},
+      </if>
+      <if test="room_Name != null" >
+      #{room_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="room_Code != null" >
+      #{room_Code,jdbcType=INTEGER},
+      </if>
+      <if test="build_ID != null" >
+      #{build_ID,jdbcType=INTEGER},
+      </if>
+      <if test="room_Floor != null" >
+      #{room_Floor,jdbcType=INTEGER},
+      </if>
+      <if test="room_Area != null" >
+      #{room_Area,jdbcType=DOUBLE},
+      </if>
+      <if test="roomEasementOfLight != null" >
+      #{roomEasementOfLight,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.Room" >
+    update room
+    <set >
+      <if test="room_ID != null" >
+        RoomID = #{room_ID,jdbcType=INTEGER},
+      </if>
+      <if test="room_Name != null" >
+       	RoomName =  #{room_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="room_Code != null" >
+      	RoomCode = #{room_Code,jdbcType=INTEGER},
+      </if>
+      <if test="build_ID != null" >
+      	BuildID = #{build_ID,jdbcType=INTEGER},
+      </if>
+      <if test="room_Floor != null" >
+      	RoomFloor = #{room_Floor,jdbcType=INTEGER},
+      </if>
+      <if test="room_Area != null" >
+      	RoomArea = #{room_Area,jdbcType=DOUBLE},
+      </if>
+      <if test="roomEasementOfLight != null" >
+      	RoomEasementOfLight = #{roomEasementOfLight,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where RoomID = #{room_ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.Room" >
+    update room
+    set RoomID = #{room_ID,jdbcType=INTEGER},
+      RoomName =  #{room_Name,jdbcType=VARCHAR},
+      RoomCode = #{room_Code,jdbcType=INTEGER},
+      BuildID = #{build_ID,jdbcType=INTEGER},
+      RoomFloor = #{room_Floor,jdbcType=INTEGER},
+      RoomArea = #{room_Area,jdbcType=DOUBLE},
+      RoomEasementOfLight = #{roomEasementOfLight,jdbcType=DOUBLE}
+    where RoomID = #{room_ID,jdbcType=INTEGER}
+  </update>
+</mapper>

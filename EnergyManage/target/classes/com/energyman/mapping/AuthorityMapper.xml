@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.AuthorityMapper" >
+  <resultMap id="BaseResultMap" type="com.energyman.bean.Authority" >
+    <id column="AuthorityID" property="authorityid" jdbcType="INTEGER" />
+    <result column="AdminFunctionID" property="adminfunctionid" jdbcType="INTEGER" />
+    <result column="AuthorityTypeID" property="authoritytypeid" jdbcType="INTEGER" />
+    <result column="AuthorityName" property="authorityname" jdbcType="VARCHAR" />
+    <result column="AuthorityDescription" property="authoritydescription" jdbcType="VARCHAR" />
+    <result column="AuthorityStatus" property="authoritystatus" jdbcType="INTEGER" />
+    <result column="AuthorityTime" property="authoritytime" jdbcType="TIMESTAMP" />
+    <result column="AuthorityCreator" property="authoritycreator" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    AuthorityID, AdminFunctionID, AuthorityTypeID, AuthorityName, AuthorityDescription, AuthorityStatus, 
+    AuthorityTime, AuthorityCreator
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from authority
+    where AuthorityID = #{authorityid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAllAuthority" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from authority
+  </select> 
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from authority
+    where AuthorityID = #{authorityid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.energyman.bean.Authority" >
+    insert into authority (AuthorityID, AdminFunctionID, AuthorityTypeID, AuthorityName, AuthorityDescription, 
+      AuthorityStatus, AuthorityTime, AuthorityCreator)
+    values (#{authorityid,jdbcType=INTEGER}, #{adminfunctionid,jdbcType=INTEGER}, #{authoritytypeid,jdbcType=INTEGER}, 
+    #{authorityname,jdbcType=VARCHAR}, #{authoritydescription,jdbcType=VARCHAR}, #{authoritystatus,jdbcType=INTEGER}, 
+    #{authoritytime,jdbcType=TIMESTAMP}, #{authoritycreator,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.energyman.bean.Authority" >
+    insert into authority
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="authorityid != null" >
+        AuthorityID,
+      </if>
+      <if test="adminfunctionid != null" >
+        AdminFunctionID,
+      </if>
+      <if test="authoritytypeid != null" >
+        AuthorityTypeID,
+      </if>
+      <if test="authorityname != null" >
+        AuthorityName,
+      </if>
+      <if test="authoritydescription != null" >
+        AuthorityDescription,
+      </if>
+      <if test="authoritystatus != null" >
+        AuthorityStatus,
+      </if>
+      <if test="authoritytime != null" >
+        AuthorityTime,
+      </if>
+      <if test="authoritycreator != null" >
+        AuthorityCreator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="authorityid != null" >
+        #{authorityid,jdbcType=INTEGER},
+      </if>
+      <if test="adminfunctionid != null" >
+         #{adminfunctionid,jdbcType=INTEGER},
+      </if>
+      <if test="authoritytypeid != null" >
+        #{authoritytypeid,jdbcType=INTEGER},
+      </if>
+      <if test="authorityname != null" >
+        #{authorityname,jdbcType=VARCHAR},
+      </if>
+      <if test="authoritydescription != null" >
+        #{authoritydescription,jdbcType=VARCHAR},
+      </if>
+      <if test="authoritystatus != null" >
+        #{authoritystatus,jdbcType=INTEGER},
+      </if>
+      <if test="authoritytime != null" >
+        #{authoritytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authoritycreator != null" >
+        #{authoritycreator,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.energyman.bean.Authority" >
+    update authority
+    <set >
+      <if test="authorityname != null" >
+        AuthorityName = #{authorityname,jdbcType=VARCHAR},
+      </if>
+      <if test="adminfunctionid != null" >
+        AdminFunctionID = #{adminfunctionid,jdbcType=INTEGER},
+      </if>
+      <if test="authoritytypeid != null" >
+        AuthorityTypeID = #{authoritytypeid,jdbcType=INTEGER},
+      </if>
+      <if test="authoritydescription != null" >
+        AuthorityDescription = #{authoritydescription,jdbcType=VARCHAR},
+      </if>
+      <if test="authoritystatus != null" >
+        AuthorityStatus = #{authoritystatus,jdbcType=INTEGER},
+      </if>
+      <if test="authoritytime != null" >
+        AuthorityTime = #{authoritytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authoritycreator != null" >
+        AuthorityCreator = #{authoritycreator,jdbcType=INTEGER},
+      </if>
+    </set>
+    where AuthorityID = #{authorityid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.energyman.bean.Authority" >
+    update authority
+    set AdminFunctionID = #{adminfunctionid,jdbcType=INTEGER},
+      AuthorityTypeID = #{authoritytypeid,jdbcType=INTEGER},
+      AuthorityName = #{authorityname,jdbcType=VARCHAR},    	
+      AuthorityDescription = #{authoritydescription,jdbcType=VARCHAR},
+      AuthorityStatus = #{authoritystatus,jdbcType=INTEGER},
+      AuthorityTime = #{authoritytime,jdbcType=TIMESTAMP},
+      AuthorityCreator = #{authoritycreator,jdbcType=INTEGER}
+    where AuthorityID = #{authorityid,jdbcType=INTEGER}
+  </update>
+</mapper>

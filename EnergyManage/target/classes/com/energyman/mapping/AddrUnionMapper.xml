@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.energyman.dao.AddrUnionDao" >
+  <resultMap id="AddrUnionResultMap" type="com.energyman.bean.AddrUnion" >
+    <id column="AddrID" property="addr_ID" jdbcType="INTEGER" />
+    <result column="AddrTypeID" property="addrType_ID" jdbcType="INTEGER" />
+    <result column="AddrCode" property="addr_Code" jdbcType="INTEGER" />
+  <association property="room" javaType="com.energyman.bean.Room" >
+    	<id column="RoomID" property="room_ID" jdbcType="INTEGER" />
+    	<result column="RoomName" property="room_Name" jdbcType="VARCHAR" />
+    	<result column="RoomCode" property="room_Code" jdbcType="INTEGER" />
+    	<result column="BuildID" property="build_ID" jdbcType="INTEGER" />
+    	<result column="RoomFloor" property="room_Floor" jdbcType="INTEGER" />
+    	<result column="RoomArea" property="room_Area" jdbcType="DOUBLE" />
+    	<result column="RoomEasementOfLight" property="roomEasementOfLight" jdbcType="DOUBLE" />
+  </association>
+  <association property="building" javaType="com.energyman.bean.Building" >
+    	<id column="BuildID" property="build_ID" jdbcType="INTEGER" />
+    	<result column="BuildName" property="build_Name" jdbcType="VARCHAR" />
+    	<result column="RegionID" property="region_ID" jdbcType="INTEGER" />
+    	<result column="BuildTypeID" property="buildType_ID" jdbcType="INTEGER" />
+    	<result column="BuildState" property="build_State" jdbcType="INTEGER" />
+    	<result column="BuildUpFloor" property="buildUp_Floor" jdbcType="INTEGER" />
+    	<result column="BuildDownFloor" property="buildDown_Floor" jdbcType="INTEGER" />
+   </association>
+   <association property="area" javaType="com.energyman.bean.Area" >
+    	<id column="RegionID" property="region_ID" jdbcType="INTEGER" />
+    	<result column="RegionName" property="region_Name" jdbcType="VARCHAR" />
+    	<result column="ParkID" property="park_ID" jdbcType="INTEGER" />
+    	<result column="RegionAddr" property="region_Addr" jdbcType="VARCHAR" />
+    	<result column="RegionContact" property="region_Contact" jdbcType="VARCHAR" />
+    	<result column="RegionTel" property="region_Tel" jdbcType="VARCHAR" />
+    	<result column="RegionEmail" property="region_Email" jdbcType="VARCHAR" />
+  </association>
+  <association property="park" javaType="com.energyman.bean.Park" >
+    	<id column="ParkID" property="park_ID" jdbcType="INTEGER" />
+    	<result column="ParkName" property="park_Name" jdbcType="VARCHAR" />
+  </association>	
+  </resultMap>
+  <sql id="Base_Column_Lists" >
+    AddrID, AddrTypeID, addr.AddrCode, RoomID, RoomName,RoomCode, room.BuildID, RoomFloor, RoomArea, 
+    RoomEasementOfLight, building.BuildID, BuildName, building.RegionID, BuildTypeID, BuildState, BuildUpFloor, 
+    BuildDownFloor, area.RegionID, RegionName, area.ParkID, RegionAddr, RegionContact, RegionTel, RegionEmail,
+    park.ParkID, ParkName
+  </sql>
+  
+  <select id="selectAddrUnionByAddrId" resultMap="AddrUnionResultMap" parameterType="java.lang.Integer">
+ 	select 
+   <include refid="Base_Column_Lists" />
+  	from addr, area, building, room, park
+  	where addr.AddrCode = RoomID AND room.BuildID = building.BuildID AND building.RegionID = area.RegionID AND
+  	area.ParkID = park.ParkID AND AddrID = #{addr_ID,jdbcType=INTEGER}
+  </select>
+  
+  
+</mapper>
